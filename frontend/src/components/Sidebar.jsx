@@ -1,0 +1,158 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '../context/AuthContext';
+import {
+  LayoutDashboard,
+  CheckSquare,
+  ListTodo,
+  PlusCircle,
+  ShieldAlert,
+  Users,
+  LogOut,
+  Layers,
+  ChevronRight,
+  ShieldCheck,
+} from 'lucide-react';
+
+export function Sidebar({ isOpen, onClose }) {
+  const pathname = usePathname();
+  const { user, logout } = useAuth();
+
+  const navItems = [
+    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
+    { label: 'My Tasks', href: '/my-tasks', icon: CheckSquare },
+    { label: 'All Tasks', href: '/all-tasks', icon: ListTodo },
+    { label: 'Create Task', href: '/create-task', icon: PlusCircle },
+    { label: 'Blocked Tasks', href: '/blocked-tasks', icon: ShieldAlert },
+    { label: 'Users', href: '/users', icon: Users },
+  ];
+
+  return (
+    <>
+      {/* Mobile backdrop */}
+      {isOpen && (
+        <div
+          onClick={onClose}
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-40 lg:hidden transition-opacity duration-200"
+        />
+      )}
+
+      <aside
+        className={`fixed top-0 left-0 z-50 h-full w-60 sm:w-64 bg-[#0d1527] border-r border-slate-800/80 flex flex-col justify-between transition-transform duration-250 ease-out lg:translate-x-0 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex flex-col flex-1">
+          {/* Brand Logo Header */}
+          <div className="h-16 px-6 border-b border-slate-800/80 flex items-center justify-between shrink-0">
+            <Link
+              href="/"
+              onClick={onClose}
+              className="flex items-center gap-3 group"
+            >
+              <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm shadow-md shadow-blue-500/30 group-hover:scale-105 transition-transform">
+                <Layers className="w-4 h-4" />
+              </div>
+              <span className="font-extrabold text-white tracking-tight text-lg">
+                Smart<span className="text-blue-500">Task</span>
+              </span>
+            </Link>
+          </div>
+
+          {/* Navigation Section */}
+          <div className="px-3.5 py-4 flex-1 flex flex-col justify-between">
+            <div>
+              <p className="px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">
+                Workspace Menu
+              </p>
+              <nav className="space-y-1">
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={onClose}
+                      className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
+                        isActive
+                          ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-bold translate-x-0.5'
+                          : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 hover:translate-x-0.5'
+                      }`}
+                    >
+                      <Icon
+                        className={`w-4 h-4 transition-colors ${
+                          isActive ? 'text-white' : 'text-slate-400'
+                        }`}
+                      />
+                      <span>{item.label}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {/* Subtle System Status Badge in Sidebar for balanced vertical height */}
+            <div className="mt-6 mx-1 p-3 rounded-2xl bg-slate-800/40 border border-slate-700/50">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-[11px] font-bold text-slate-200 truncate">
+                    Smart Dependency Guard
+                  </p>
+                  <p className="text-[10px] text-slate-400">
+                    Auto-validation Active
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* User Profile Card at bottom of Sidebar */}
+        <div className="p-3.5 border-t border-slate-800/80 bg-slate-900/70 shrink-0">
+          {user ? (
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 p-2 rounded-xl bg-slate-800/70 border border-slate-700/60">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+                <div className="overflow-hidden min-w-0 flex-1">
+                  <p className="text-xs font-bold text-white truncate">
+                    {user.name}
+                  </p>
+                  <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  logout();
+                  if (onClose) onClose();
+                }}
+                className="w-full flex items-center justify-center gap-2 px-3 py-1.5 text-xs font-bold text-slate-300 hover:text-red-400 hover:bg-slate-800/80 rounded-lg border border-slate-800 transition-colors"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Log Out</span>
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              onClick={onClose}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-colors"
+            >
+              <span>Sign In</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          )}
+        </div>
+      </aside>
+    </>
+  );
+}
