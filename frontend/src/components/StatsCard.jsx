@@ -12,68 +12,57 @@ export function StatsCard({
 }) {
   const variantStyles = {
     default: {
-      card: 'border-slate-200/90 hover:border-slate-300',
-      iconBox: 'bg-slate-100 text-slate-700',
-      iconColor: 'text-slate-600',
+      iconBox: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300',
+      bar: 'bg-slate-500',
     },
     primary: {
-      card: 'border-slate-200/90 hover:border-blue-300',
-      iconBox: 'bg-blue-50 text-blue-600',
-      iconColor: 'text-blue-600',
+      iconBox: 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400',
+      bar: 'bg-indigo-600',
     },
     warning: {
-      card: 'border-slate-200/90 hover:border-amber-300',
-      iconBox: 'bg-amber-50 text-amber-600',
-      iconColor: 'text-amber-600',
+      iconBox: 'bg-[#FEF3C7] dark:bg-amber-950/60 text-[#D97706] dark:text-amber-400',
+      bar: 'bg-[#D97706]',
     },
     success: {
-      card: 'border-slate-200/90 hover:border-emerald-300',
-      iconBox: 'bg-emerald-50 text-emerald-600',
-      iconColor: 'text-emerald-600',
+      iconBox: 'bg-[#E6F4EA] dark:bg-emerald-950/60 text-[#137333] dark:text-emerald-400',
+      bar: 'bg-[#10B981]',
     },
     info: {
-      card: 'border-slate-200/90 hover:border-cyan-300',
-      iconBox: 'bg-cyan-50 text-cyan-600',
-      iconColor: 'text-cyan-600',
+      iconBox: 'bg-[#E0F2FE] dark:bg-sky-950/60 text-[#0284C7] dark:text-sky-400',
+      bar: 'bg-[#0284C7]',
     },
   };
 
   const style = variantStyles[variant] || variantStyles.default;
 
-  const cardClasses = `relative p-3.5 sm:p-5 rounded-2xl border bg-white shadow-premium-sm hover:shadow-premium-hover transition-all duration-200 hover:-translate-y-0.5 group flex flex-col justify-between ${style.card} ${href ? 'cursor-pointer' : ''}`;
+  const cardClasses = `relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100/90 dark:border-slate-800 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 group flex flex-col justify-between ${href ? 'cursor-pointer' : ''}`;
 
   const content = (
     <>
-      <div className="flex items-center gap-2.5 sm:gap-3.5 mb-1.5 sm:mb-2">
+      <div className="flex items-center gap-3 sm:gap-3.5 mb-2">
         <div
-          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 ${style.iconBox}`}
+          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 ${style.iconBox}`}
         >
           {React.cloneElement(icon, { className: 'w-4 h-4 sm:w-5 sm:h-5' })}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-[11px] sm:text-xs font-bold text-slate-500 tracking-tight truncate">
+          <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 truncate">
             {title}
           </p>
-          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none mt-0.5">
+          <p className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-none mt-1">
             {count}
           </p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-1.5 pt-1.5 sm:mt-2 sm:pt-2 border-t border-slate-100 text-xs text-slate-500">
-        <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 truncate">
+      <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
+        <span className="text-[11px] font-medium truncate">
           {trend || 'Active'}
         </span>
         {typeof progressPercent === 'number' && (
-          <div className="w-8 sm:w-10 bg-slate-100 rounded-full h-1 sm:h-1.5 overflow-hidden shrink-0 ml-1.5 sm:ml-2">
+          <div className="w-10 sm:w-12 bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden shrink-0 ml-2">
             <div
-              className={`h-full rounded-full ${
-                variant === 'success'
-                  ? 'bg-emerald-500'
-                  : variant === 'warning'
-                  ? 'bg-amber-500'
-                  : 'bg-blue-600'
-              }`}
+              className={`h-full rounded-full transition-all duration-300 ${style.bar}`}
               style={{ width: `${Math.min(100, Math.max(0, progressPercent))}%` }}
             />
           </div>

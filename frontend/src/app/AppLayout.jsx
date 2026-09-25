@@ -32,11 +32,11 @@ export default function AppLayout({ children }) {
   };
 
   if (isLoginPage) {
-    return <main className="min-h-screen bg-slate-50">{children}</main>;
+    return <main className="min-h-screen bg-slate-50 dark:bg-slate-950">{children}</main>;
   }
 
   return (
-    <div className="min-h-screen flex bg-[#f1f5f9]">
+    <div className="min-h-screen flex bg-[#f1f5f9] dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
       {/* Sidebar navigation */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 

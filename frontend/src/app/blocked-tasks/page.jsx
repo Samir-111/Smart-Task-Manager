@@ -127,28 +127,28 @@ export default function BlockedTasksPage() {
           type="button"
           onClick={() => fetchBlocked(true)}
           disabled={refreshing || loading}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl shadow-2xs transition-all active:scale-98 self-start sm:self-center"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl shadow-2xs transition-all active:scale-98 self-start sm:self-center"
         >
-          <RefreshCw className={`w-3.5 h-3.5 text-blue-600 ${refreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 ${refreshing ? 'animate-spin' : ''}`} />
           <span>Refresh</span>
         </button>
       </div>
 
       {/* Dependency Rule Banner */}
-      <div className="bg-gradient-to-r from-amber-50/90 via-amber-50/40 to-white border border-amber-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 text-xs text-amber-950 flex items-start gap-3 shadow-premium-sm">
-        <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 border border-amber-200 shadow-2xs">
+      <div className="bg-gradient-to-r from-amber-50/90 via-amber-50/40 to-white dark:from-amber-950/40 dark:via-slate-900 dark:to-slate-900 border border-amber-200/90 dark:border-amber-900/50 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 text-xs text-amber-950 dark:text-amber-300 flex items-start gap-3 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+        <div className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-200 dark:border-amber-800 shadow-2xs">
           <Lock className="w-4 h-4" />
         </div>
         <div className="leading-snug">
-          <p className="font-extrabold text-slate-900 text-xs sm:text-sm">Smart Dependency Guard</p>
-          <p className="text-slate-600 mt-0.5 text-[11px] sm:text-xs">
+          <p className="font-extrabold text-slate-900 dark:text-white text-xs sm:text-sm">Smart Dependency Guard</p>
+          <p className="text-slate-600 dark:text-slate-400 mt-0.5 text-[11px] sm:text-xs">
             Tasks with prerequisites remain blocked until prerequisites reach <strong>Done</strong>.
           </p>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-premium-sm flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-stretch sm:items-center justify-between">
+      <div className="bg-white dark:bg-slate-900 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-stretch sm:items-center justify-between">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
@@ -156,7 +156,7 @@ export default function BlockedTasksPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search blocked tasks or prerequisites..."
-            className="w-full pl-10 pr-9 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/60 hover:border-slate-300 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+            className="w-full pl-10 pr-9 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 bg-slate-50/60 dark:bg-slate-800/60 hover:border-slate-300 dark:hover:border-slate-600 focus:bg-white dark:focus:bg-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           />
           {searchQuery && (
             <button
@@ -170,7 +170,7 @@ export default function BlockedTasksPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400">
             <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400" />
             <span>Priority:</span>
           </div>
@@ -178,7 +178,7 @@ export default function BlockedTasksPage() {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white hover:border-slate-300 focus:border-blue-500 transition-all"
+            className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           >
             <option value="ALL">All Priorities</option>
             <option value="High">High</option>
@@ -193,7 +193,7 @@ export default function BlockedTasksPage() {
                 setPriorityFilter('ALL');
                 setSearchQuery('');
               }}
-              className="text-xs font-bold text-blue-600 hover:text-blue-800 px-2 py-1 hover:underline"
+              className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 px-2 py-1 hover:underline"
             >
               Reset
             </button>
@@ -203,24 +203,24 @@ export default function BlockedTasksPage() {
 
       {/* Blocked Cards Dependency Flow */}
       {loading ? (
-        <div className="bg-white p-8 sm:p-12 rounded-2xl sm:rounded-3xl border border-slate-200 text-center">
-          <Loader2 className="w-6 h-6 animate-spin text-blue-600 mx-auto mb-2" />
-          <p className="text-xs text-slate-500 font-medium">Checking task dependencies...</p>
+        <div className="bg-white dark:bg-slate-900 p-8 sm:p-12 rounded-2xl sm:rounded-3xl border border-slate-100 dark:border-slate-800 text-center">
+          <Loader2 className="w-6 h-6 animate-spin text-indigo-600 dark:text-indigo-400 mx-auto mb-2" />
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Checking task dependencies...</p>
         </div>
       ) : filteredTasks.length === 0 ? (
-        <div className="bg-white rounded-2xl sm:rounded-3xl border border-emerald-200/90 p-8 sm:p-12 text-center shadow-premium-sm">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-2.5 border border-emerald-100 shadow-2xs">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-emerald-200/90 dark:border-emerald-900/50 p-8 sm:p-12 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-2.5 border border-emerald-100 dark:border-emerald-900/50 shadow-2xs">
             <CheckCircle2 className="w-5 h-5" />
           </div>
-          <h3 className="text-sm sm:text-base font-bold text-slate-900">Zero Blocked Tasks!</h3>
-          <p className="text-xs text-slate-500 mt-1 mb-4 max-w-sm mx-auto">
+          <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Zero Blocked Tasks!</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4 max-w-sm mx-auto">
             {searchQuery || priorityFilter !== 'ALL'
               ? 'No blocked tasks matched your filter criteria.'
               : 'All task dependencies are satisfied. You are clear to complete sprint deliverables!'}
           </p>
           <Link
             href="/all-tasks"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors shadow-2xs"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 transition-colors shadow-2xs"
           >
             <Link2 className="w-3.5 h-3.5" />
             <span>Open All Tasks Directory</span>

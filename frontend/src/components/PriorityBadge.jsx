@@ -3,27 +3,27 @@ import React from 'react';
 export function PriorityBadge({ priority, className = '' }) {
   const configs = {
     High: {
-      bg: 'bg-red-50/80 text-red-700 border-red-200/80',
-      dot: 'bg-red-500',
+      bg: 'bg-[#FEE2E2] dark:bg-rose-950/60 text-[#991B1B] dark:text-rose-300',
+      dot: 'bg-[#DC2626]',
     },
     Medium: {
-      bg: 'bg-amber-50/80 text-amber-700 border-amber-200/80',
-      dot: 'bg-amber-500',
+      bg: 'bg-[#FEF3C7] dark:bg-amber-950/60 text-[#92400E] dark:text-amber-300',
+      dot: 'bg-[#D97706]',
     },
     Low: {
-      bg: 'bg-emerald-50/80 text-emerald-700 border-emerald-200/80',
-      dot: 'bg-emerald-500',
+      bg: 'bg-[#ECFDF5] dark:bg-emerald-950/60 text-[#065F46] dark:text-emerald-300',
+      dot: 'bg-[#059669]',
     },
   };
 
   const config = configs[priority] || {
-    bg: 'bg-slate-50 text-slate-700 border-slate-200',
-    dot: 'bg-slate-400',
+    bg: 'bg-[#F1F5F9] dark:bg-slate-800 text-[#475569] dark:text-slate-300',
+    dot: 'bg-[#64748B]',
   };
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border tracking-tight shadow-2xs transition-colors ${config.bg} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-tight shadow-2xs transition-colors ${config.bg} ${className}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${config.dot}`} />
       <span>{priority}</span>

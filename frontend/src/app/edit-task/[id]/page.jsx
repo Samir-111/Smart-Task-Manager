@@ -6,6 +6,7 @@ import { TaskForm } from '../../../components/TaskForm';
 import { getTaskById, updateTask } from '../../../services/api';
 import { PriorityBadge } from '../../../components/PriorityBadge';
 import { StatusBadge } from '../../../components/StatusBadge';
+import { TaskComments } from '../../../components/TaskComments';
 import {
   Loader2,
   AlertCircle,
@@ -129,9 +130,14 @@ export default function EditTaskPage() {
 
       {/* 3. Single-Column on Mobile, Two-Column on Desktop */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
-        {/* Left: Task Form Editor */}
-        <div className="lg:col-span-7">
+        {/* Left: Task Form Editor & Comments */}
+        <div className="lg:col-span-7 space-y-5 sm:space-y-6">
           <TaskForm initialData={task} isEdit={true} onSubmit={handleUpdateTask} />
+          <TaskComments
+            taskId={task.id}
+            taskTitle={task.title}
+            assignedUser={task.assignedUser}
+          />
         </div>
 
         {/* Right: Dependency Inspector & Metadata Cards */}

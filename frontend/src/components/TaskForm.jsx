@@ -125,20 +125,20 @@ export function TaskForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-6 sm:p-8 shadow-premium-sm max-w-2xl animate-fade-in"
+      className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-100 dark:border-slate-800 p-4 sm:p-6 sm:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] max-w-2xl animate-fade-in"
     >
-      <div className="flex items-center justify-between pb-3.5 mb-4 sm:mb-6 border-b border-slate-100">
+      <div className="flex items-center justify-between pb-3.5 mb-4 sm:mb-6 border-b border-slate-100 dark:border-slate-800">
         <div>
-          <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">
             {isEdit ? 'Edit Task Details' : 'New Task Details'}
           </h2>
-          <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+          <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             {isEdit ? 'Modify fields and adjust dependency links' : 'Fill out details to create a new tracked task'}
           </p>
         </div>
         <Link
           href="/all-tasks"
-          className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-900 px-2.5 py-1.5 rounded-xl hover:bg-slate-100 transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-2.5 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back</span>
@@ -147,14 +147,14 @@ export function TaskForm({
 
       {/* Alert Messages */}
       {errorMessage && (
-        <div className="mb-4 p-3 bg-red-50/90 border border-red-200 rounded-xl flex items-start gap-2 text-xs text-red-700 animate-slide-up">
+        <div className="mb-4 p-3 bg-red-50/90 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 rounded-xl flex items-start gap-2 text-xs text-red-700 dark:text-red-400 animate-slide-up">
           <AlertCircle className="w-4 h-4 text-red-600 mt-0.5 shrink-0" />
           <span className="font-medium">{errorMessage}</span>
         </div>
       )}
 
       {successMessage && (
-        <div className="mb-4 p-3 bg-emerald-50/90 border border-emerald-200 rounded-xl flex items-start gap-2 text-xs text-emerald-700 animate-slide-up">
+        <div className="mb-4 p-3 bg-emerald-50/90 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 rounded-xl flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-400 animate-slide-up">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
           <span className="font-semibold">{successMessage}</span>
         </div>
@@ -163,7 +163,7 @@ export function TaskForm({
       <div className="space-y-3.5 sm:space-y-5">
         {/* Title */}
         <div>
-          <label htmlFor="task-title" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          <label htmlFor="task-title" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
             Task Title <span className="text-red-500">*</span>
           </label>
           <input
@@ -173,13 +173,13 @@ export function TaskForm({
             onChange={(e) => setTitle(e.target.value)}
             placeholder="e.g. Design Login & Onboarding Flow"
             required
-            className="w-full px-3.5 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 hover:border-slate-300 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+            className="w-full px-3.5 py-2 sm:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 bg-slate-50/50 dark:bg-slate-800/60 hover:border-slate-300 dark:hover:border-slate-600 focus:bg-white dark:focus:bg-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label htmlFor="task-description" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          <label htmlFor="task-description" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
             Description
           </label>
           <textarea
@@ -188,21 +188,21 @@ export function TaskForm({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Add specifications, requirements, or acceptance criteria..."
-            className="w-full px-3.5 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/50 hover:border-slate-300 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all resize-none"
+            className="w-full px-3.5 py-2 sm:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 bg-slate-50/50 dark:bg-slate-800/60 hover:border-slate-300 dark:hover:border-slate-600 focus:bg-white dark:focus:bg-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all resize-none"
           />
         </div>
 
         {/* Priority & Status */}
         <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
           <div>
-            <label htmlFor="task-priority" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+            <label htmlFor="task-priority" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
               Priority
             </label>
             <select
               id="task-priority"
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
-              className="w-full px-3 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-900 bg-white hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+              className="w-full px-3 py-2 sm:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
             >
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
@@ -211,14 +211,14 @@ export function TaskForm({
           </div>
 
           <div>
-            <label htmlFor="task-status" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+            <label htmlFor="task-status" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
               Status
             </label>
             <select
               id="task-status"
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full px-3 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-900 bg-white hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+              className="w-full px-3 py-2 sm:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
             >
               <option value="To Do">To Do</option>
               <option value="In Progress">In Progress</option>
@@ -229,7 +229,7 @@ export function TaskForm({
 
         {/* Assign User */}
         <div>
-          <label htmlFor="task-assignee" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          <label htmlFor="task-assignee" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
             Assign To <span className="text-red-500">*</span>
           </label>
           <select
@@ -237,7 +237,7 @@ export function TaskForm({
             value={assignedUserId}
             onChange={(e) => setAssignedUserId(e.target.value)}
             required
-            className="w-full px-3 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-900 bg-white hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+            className="w-full px-3 py-2 sm:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           >
             <option value="">-- Select Team Member --</option>
             {users.map((u) => (
@@ -249,15 +249,15 @@ export function TaskForm({
         </div>
 
         {/* Depends On */}
-        <div className="bg-slate-50/80 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/90">
-          <label htmlFor="task-dependency" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+        <div className="bg-slate-50/80 dark:bg-slate-800/50 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-slate-700">
+          <label htmlFor="task-dependency" className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
             Prerequisite Dependency (Optional)
           </label>
           <select
             id="task-dependency"
             value={dependsOnTaskId}
             onChange={(e) => setDependsOnTaskId(e.target.value)}
-            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-900 bg-white hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+            className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           >
             <option value="">None (Independent task)</option>
             {availableTasks.map((t) => (
@@ -266,7 +266,7 @@ export function TaskForm({
               </option>
             ))}
           </select>
-          <div className="flex items-start gap-1.5 mt-2 text-[11px] sm:text-xs text-slate-500">
+          <div className="flex items-start gap-1.5 mt-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
             <ShieldAlert className="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" />
             <p className="leading-snug">
               <strong>Smart Dependency:</strong> Marked as <strong>Blocked</strong> until prerequisite reaches <strong>Done</strong>.
@@ -276,17 +276,17 @@ export function TaskForm({
       </div>
 
       {/* Actions */}
-      <div className="mt-6 pt-4 sm:mt-8 sm:pt-5 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5 sm:gap-3">
+      <div className="mt-6 pt-4 sm:mt-8 sm:pt-5 border-t border-slate-100 dark:border-slate-800 flex flex-col-reverse sm:flex-row items-center justify-end gap-2.5 sm:gap-3">
         <Link
           href="/all-tasks"
-          className="w-full sm:w-auto text-center px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+          className="w-full sm:w-auto text-center px-4 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
         >
           Cancel
         </Link>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs hover:shadow-md transition-all duration-150 active:scale-98 disabled:opacity-60"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs hover:shadow-md transition-all duration-150 active:scale-98 disabled:opacity-60"
         >
           {isSubmitting ? (
             <>

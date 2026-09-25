@@ -189,14 +189,14 @@ export default function MyTasksPage() {
 
         <div className="flex items-center gap-3">
           {/* View Mode Toggle */}
-          <div className="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200/80">
+          <div className="flex items-center p-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700">
             <button
               type="button"
               onClick={() => setViewMode('table')}
               className={`p-1.5 rounded-lg text-xs font-bold transition-all ${
                 viewMode === 'table'
-                  ? 'bg-white text-blue-600 shadow-2xs'
-                  : 'text-slate-500 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-2xs'
+                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
               }`}
               title="Table view"
             >
@@ -207,8 +207,8 @@ export default function MyTasksPage() {
               onClick={() => setViewMode('grid')}
               className={`p-1.5 rounded-lg text-xs font-bold transition-all ${
                 viewMode === 'grid'
-                  ? 'bg-white text-blue-600 shadow-2xs'
-                  : 'text-slate-500 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-2xs'
+                  : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
               }`}
               title="Card grid view"
             >
@@ -220,10 +220,10 @@ export default function MyTasksPage() {
             type="button"
             onClick={() => exportTasksToCsv(filteredTasks, `smarttask_${user?.name?.toLowerCase().replace(/\s+/g, '_')}_tasks.csv`)}
             disabled={filteredTasks.length === 0}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl shadow-2xs transition-all active:scale-98 disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl shadow-2xs transition-all active:scale-98 disabled:opacity-50"
             title="Export your tasks as CSV"
           >
-            <Download className="w-3.5 h-3.5 text-emerald-600" />
+            <Download className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             <span className="hidden sm:inline">Export CSV</span>
           </button>
 
@@ -231,14 +231,14 @@ export default function MyTasksPage() {
             type="button"
             onClick={() => fetchMyTasks(true)}
             disabled={refreshing || loading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl shadow-2xs transition-all active:scale-98"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl shadow-2xs transition-all active:scale-98"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-blue-600 ${refreshing ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 ${refreshing ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
           </button>
           <Link
             href="/create-task"
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all active:scale-98"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs transition-all active:scale-98"
           >
             <Plus className="w-4 h-4" />
             <span>Create Task</span>
@@ -247,29 +247,29 @@ export default function MyTasksPage() {
       </div>
 
       {/* Workload Progress Card */}
-      <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-premium-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+      <div className="bg-white dark:bg-slate-900 p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-extrabold text-xs sm:text-sm shadow-2xs shrink-0">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-br from-indigo-600 to-slate-900 text-white flex items-center justify-center font-extrabold text-xs sm:text-sm shadow-2xs shrink-0">
             {user.name.charAt(0).toUpperCase()}
           </div>
           <div>
-            <p className="text-[11px] sm:text-xs font-bold text-slate-500">Personal Sprint Completion</p>
-            <p className="text-xs sm:text-base font-extrabold text-slate-900">
+            <p className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400">Personal Sprint Completion</p>
+            <p className="text-xs sm:text-base font-extrabold text-slate-900 dark:text-white">
               {countCompleted} of {countAll} completed ({completionPercent}%)
             </p>
           </div>
         </div>
 
-        <div className="w-full sm:w-64 bg-slate-100 rounded-full h-2 sm:h-2.5 overflow-hidden">
+        <div className="w-full sm:w-64 bg-slate-100 dark:bg-slate-800 rounded-full h-2 sm:h-2.5 overflow-hidden">
           <div
-            className="bg-gradient-to-r from-blue-600 to-emerald-500 h-full rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-indigo-600 to-emerald-500 h-full rounded-full transition-all duration-500"
             style={{ width: `${completionPercent}%` }}
           />
         </div>
       </div>
 
       {/* Filter Tabs Bar (Horizontally scrollable on mobile) */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none border-b border-slate-200/80">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none border-b border-slate-200/80 dark:border-slate-800">
         {tabList.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -280,9 +280,9 @@ export default function MyTasksPage() {
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                 isActive
                   ? tab.isBlockedTab
-                    ? 'bg-amber-100 text-amber-900 border border-amber-300/80 shadow-2xs'
-                    : 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                    ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border border-amber-300/80 dark:border-amber-800/80 shadow-2xs'
+                    : 'bg-indigo-600 text-white shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/70'
               }`}
             >
               {tab.isBlockedTab && <ShieldAlert className="w-3.5 h-3.5" />}
@@ -292,8 +292,8 @@ export default function MyTasksPage() {
                   isActive
                     ? 'bg-white/20 text-white'
                     : tab.isBlockedTab && tab.count > 0
-                    ? 'bg-amber-100 text-amber-800'
-                    : 'bg-slate-200/80 text-slate-600'
+                    ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300'
+                    : 'bg-slate-200/80 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                 }`}
               >
                 {tab.count}
@@ -304,7 +304,7 @@ export default function MyTasksPage() {
       </div>
 
       {/* Search & Filter Toolbar */}
-      <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-premium-sm flex flex-col md:flex-row gap-2.5 sm:gap-3.5 items-stretch md:items-center justify-between">
+      <div className="bg-white dark:bg-slate-900 p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-2.5 sm:gap-3.5 items-stretch md:items-center justify-between">
         {/* Search Box */}
         <div className="relative flex-1 min-w-[200px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -313,7 +313,7 @@ export default function MyTasksPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search your tasks..."
-            className="w-full pl-10 pr-9 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/60 hover:border-slate-300 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+            className="w-full pl-10 pr-9 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 bg-slate-50/60 dark:bg-slate-800/60 hover:border-slate-300 dark:hover:border-slate-600 focus:bg-white dark:focus:bg-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           />
           {searchQuery && (
             <button
@@ -328,7 +328,7 @@ export default function MyTasksPage() {
 
         {/* Filter Controls */}
         <div className="flex items-center gap-2 flex-wrap">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400">
             <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400" />
             <span>Priority:</span>
           </div>
@@ -336,7 +336,7 @@ export default function MyTasksPage() {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white hover:border-slate-300 focus:border-blue-500 transition-all"
+            className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           >
             <option value="ALL">All Priorities</option>
             <option value="High">High</option>
@@ -344,7 +344,7 @@ export default function MyTasksPage() {
             <option value="Low">Low</option>
           </select>
 
-          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 ml-1">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400 ml-1">
             <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
             <span>Sort:</span>
           </div>
@@ -352,7 +352,7 @@ export default function MyTasksPage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white hover:border-slate-300 focus:border-blue-500 transition-all"
+            className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-950 transition-all"
           >
             <option value="DEFAULT">Default</option>
             <option value="PRIORITY">Priority</option>
@@ -367,7 +367,7 @@ export default function MyTasksPage() {
                 setSearchQuery('');
                 setSortBy('DEFAULT');
               }}
-              className="text-xs font-bold text-blue-600 hover:text-blue-800 px-2 py-1 hover:underline"
+              className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 px-2 py-1 hover:underline"
             >
               Reset
             </button>

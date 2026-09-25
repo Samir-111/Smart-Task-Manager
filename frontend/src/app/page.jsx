@@ -16,6 +16,7 @@ import {
   Plus,
   RefreshCw,
   Sparkles,
+  Layers,
   Users,
   Search,
   Check,
@@ -143,23 +144,35 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-5 sm:space-y-6 animate-fade-in">
-      {/* 1. Hero Greeting Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-100/80 via-indigo-50/60 to-blue-50/70 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-blue-200/70 shadow-premium-sm">
-        {/* Background ambient accents */}
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-48 sm:w-64 h-48 sm:h-64 bg-blue-300/20 rounded-full blur-2xl pointer-events-none" />
+      {/* 1. Hero Greeting Banner (Balanced Medium Slate & Indigo Aesthetic) */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-slate-100/90 via-indigo-50/80 to-blue-100/70 dark:from-slate-800/90 dark:via-slate-800/95 dark:to-indigo-950/60 rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-slate-200/90 dark:border-slate-700/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+        {/* Subtle Ambient Glows */}
+        <div className="absolute top-0 right-1/4 -mt-8 w-60 h-60 bg-indigo-200/40 dark:bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/3 -mb-8 w-40 h-40 bg-blue-200/30 dark:bg-blue-600/10 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-5">
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white text-blue-700 text-[11px] font-bold mb-1.5 border border-blue-200/90 shadow-2xs">
-              <Sparkles className="w-3 h-3 text-blue-600" />
+            {/* Workspace pill tag */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 text-indigo-700 dark:text-indigo-400 text-[11px] font-bold mb-2.5 border border-slate-200/80 dark:border-slate-700 shadow-2xs">
+              <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
               <span>SmartTask Workspace</span>
             </div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-slate-900 flex items-center gap-1.5">
-              <span>Good morning{user ? `, ${user.name}` : ''}!</span>
-              <span>👋</span>
+
+            {/* Greeting Header */}
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 flex-wrap">
+              <span>Good morning,</span>
+              {user ? (
+                <span className="text-indigo-600 dark:text-indigo-400 capitalize font-black">
+                  {user.name}
+                </span>
+              ) : null}
+              <span>!</span>
+              <span className="text-2xl ml-0.5">👋</span>
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-snug font-medium">
-              Here&apos;s what&apos;s happening with your tasks today.
+
+            {/* Subtitle */}
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-snug font-medium">
+              Here&apos;s what&apos;s happening with your tasks and project dependencies today.
             </p>
           </div>
 
@@ -169,26 +182,26 @@ export default function DashboardPage() {
               type="button"
               onClick={() => exportTasksToCsv(tasks, 'smarttask_sprint_report.csv')}
               disabled={tasks.length === 0}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-2xs transition-all active:scale-98 disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 bg-white/95 dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xs transition-all active:scale-98 disabled:opacity-50"
               title="Download CSV spreadsheet of all tasks"
             >
-              <Download className="w-3.5 h-3.5 text-emerald-600" />
+              <Download className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>Export CSV</span>
             </button>
             <button
               type="button"
               onClick={() => fetchDashboardData(true)}
               disabled={refreshing || loading}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-2xs transition-all active:scale-98"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 bg-white/95 dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xs transition-all active:scale-98"
             >
-              <RefreshCw className={`w-3.5 h-3.5 text-blue-600 ${refreshing ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 ${refreshing ? 'animate-spin' : ''}`} />
               <span>Refresh</span>
             </button>
             <Link
               href="/create-task"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all active:scale-98"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs hover:shadow-md transition-all active:scale-98"
             >
-              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <Plus className="w-4 h-4" />
               <span>Create Task</span>
             </Link>
           </div>
