@@ -30,19 +30,19 @@ export function Navbar({ onToggleSidebar, title }) {
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-xs border-b border-slate-200/90 px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-      {/* Left side: Mobile Hamburger + Search Input */}
-      <div className="flex items-center gap-3 flex-1 max-w-xl">
+    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-xs border-b border-slate-200/90 px-3.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-3 sm:gap-4">
+      {/* Left side: Mobile Hamburger + Search Input / Mobile Title */}
+      <div className="flex items-center gap-2.5 sm:gap-3 flex-1 max-w-xl min-w-0">
         <button
           type="button"
           onClick={onToggleSidebar}
-          className="p-2 -ml-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 lg:hidden transition-colors shrink-0"
+          className="p-1.5 sm:p-2 -ml-1 sm:-ml-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 lg:hidden transition-colors shrink-0"
           aria-label="Toggle navigation menu"
         >
           <Menu className="w-5 h-5" />
         </button>
 
-        {/* Search Bar */}
+        {/* Search Bar (Desktop / Tablet) */}
         <form onSubmit={handleSearchSubmit} className="relative w-full max-w-md hidden sm:block">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
@@ -54,9 +54,9 @@ export function Navbar({ onToggleSidebar, title }) {
           />
         </form>
 
-        {/* Mobile Title */}
-        <div className="sm:hidden font-bold text-slate-900 text-sm truncate">
-          {title || 'SmartTask'}
+        {/* Mobile Brand Title */}
+        <div className="sm:hidden font-extrabold text-base tracking-tight flex items-center">
+          <span className="text-slate-900 font-black">Smart<span className="text-blue-600">Task</span></span>
         </div>
       </div>
 

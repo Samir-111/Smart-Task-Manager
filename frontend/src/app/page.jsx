@@ -137,44 +137,43 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-5 sm:space-y-6 animate-fade-in">
-      {/* 1. Hero Greeting Banner matching reference image */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-100/90 via-indigo-50/70 to-blue-50/80 rounded-3xl p-5 sm:p-7 border border-blue-200/80 shadow-premium-sm">
+      {/* 1. Hero Greeting Banner */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-100/80 via-indigo-50/60 to-blue-50/70 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-blue-200/70 shadow-premium-sm">
         {/* Background ambient accents */}
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-blue-300/20 rounded-full blur-2xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/3 w-48 h-48 bg-indigo-200/30 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-48 sm:w-64 h-48 sm:h-64 bg-blue-300/20 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-5">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-blue-700 text-xs font-bold mb-2.5 border border-blue-200/90 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white text-blue-700 text-[11px] font-bold mb-1.5 border border-blue-200/90 shadow-2xs">
+              <Sparkles className="w-3 h-3 text-blue-600" />
               <span>SmartTask Workspace</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-slate-900 flex items-center gap-1.5">
               <span>Good morning{user ? `, ${user.name}` : ''}!</span>
               <span>👋</span>
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed font-medium">
-              Here&apos;s what&apos;s happening with your tasks and project dependencies today.
+            <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-snug font-medium">
+              Here&apos;s what&apos;s happening with your tasks today.
             </p>
           </div>
 
           {/* Banner Quick Actions */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-start sm:self-auto pt-1 sm:pt-0">
             <button
               type="button"
               onClick={() => fetchDashboardData(true)}
               disabled={refreshing || loading}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-2xs transition-all active:scale-98"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-2xs transition-all active:scale-98"
             >
               <RefreshCw className={`w-3.5 h-3.5 text-blue-600 ${refreshing ? 'animate-spin' : ''}`} />
               <span>Refresh</span>
             </button>
             <Link
               href="/create-task"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all active:scale-98"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all active:scale-98"
             >
-              <Plus className="w-4 h-4" />
-              <span>+ Create Task</span>
+              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Create Task</span>
             </Link>
           </div>
         </div>
@@ -183,7 +182,7 @@ export default function DashboardPage() {
       {/* 2. Notifications / Feedback Alert */}
       {feedbackMessage && (
         <div
-          className={`p-4 rounded-2xl border text-xs sm:text-sm flex items-center justify-between shadow-2xs animate-slide-up ${
+          className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-xs sm:text-sm flex items-center justify-between shadow-2xs animate-slide-up ${
             feedbackMessage.type === 'success'
               ? 'bg-emerald-50/90 border-emerald-200 text-emerald-900'
               : 'bg-red-50/90 border-red-200 text-red-900'
@@ -207,14 +206,14 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* 3. 4-Column Stats Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* 3. 2x2 Stats Grid on Mobile, 4-Column on Desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         <StatsCard
           title="Total Tasks"
           count={totalTasks}
           icon={<LayoutGrid className="w-5 h-5 text-blue-600" />}
           variant="primary"
-          trend="+2 new this week"
+          trend="+2 this wk"
           progressPercent={100}
         />
         <StatsCard
@@ -222,7 +221,7 @@ export default function DashboardPage() {
           count={todoTasks}
           icon={<Clock className="w-5 h-5 text-amber-600" />}
           variant="warning"
-          trend={`${todoPercent}% of total`}
+          trend={`${todoPercent}% total`}
           progressPercent={todoPercent}
         />
         <StatsCard
@@ -230,7 +229,7 @@ export default function DashboardPage() {
           count={inProgressTasks}
           icon={<Loader2 className="w-5 h-5 text-cyan-600" />}
           variant="info"
-          trend={`${inProgressPercent}% of total`}
+          trend={`${inProgressPercent}% total`}
           progressPercent={inProgressPercent}
         />
         <StatsCard
@@ -238,7 +237,7 @@ export default function DashboardPage() {
           count={completedTasks}
           icon={<CheckCircle2 className="w-5 h-5 text-emerald-600" />}
           variant="success"
-          trend={`${completionRate}% of total`}
+          trend={`${completionRate}% total`}
           progressPercent={completionRate}
         />
       </div>
@@ -247,28 +246,28 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
         {/* Left / Main Section (8 cols) */}
         <div className="lg:col-span-8 space-y-5">
-          {/* Recent Tasks Card with Table */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-6 shadow-premium-sm">
+          {/* Recent Tasks Card with Table / Mobile Cards */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-3.5 sm:p-6 shadow-premium-sm">
             {/* Header with Search and View All */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 mb-3 sm:mb-4">
               <div>
                 <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
                   Recent Tasks
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-[11px] sm:text-xs text-slate-500">
                   Latest tasks across the system
                 </p>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="relative">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="relative flex-1 sm:flex-none">
                   <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     type="text"
                     value={searchTableQuery}
                     onChange={(e) => setSearchTableQuery(e.target.value)}
-                    placeholder="Search Tasks..."
-                    className="pl-8 pr-3 py-1.5 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:border-blue-500 transition-all w-36 sm:w-44"
+                    placeholder="Search..."
+                    className="pl-8 pr-3 py-1.5 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:border-blue-500 transition-all w-full sm:w-44"
                   />
                 </div>
 
@@ -308,10 +307,10 @@ export default function DashboardPage() {
         </div>
 
         {/* Right Section (4 cols) */}
-        <div className="lg:col-span-4 space-y-5">
+        <div className="lg:col-span-4 space-y-4 sm:space-y-5">
           {/* 1. Top Priorities Widget */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-5 shadow-premium-sm">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
+            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 mb-2.5 sm:mb-3">
               <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                 <span>Top Priorities</span>
               </h3>
@@ -321,19 +320,18 @@ export default function DashboardPage() {
             </div>
 
             {priorityTasks.length === 0 ? (
-              /* Polished compact empty state matching Item 7 */
-              <div className="py-4 px-3 text-center flex items-center justify-center gap-2 bg-slate-50/60 rounded-2xl border border-dashed border-slate-200">
+              <div className="py-3.5 px-3 text-center flex items-center justify-center gap-2 bg-slate-50/60 rounded-xl sm:rounded-2xl border border-dashed border-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                 <p className="text-xs font-medium text-slate-600">
                   No active high-priority tasks in sprint.
                 </p>
               </div>
             ) : (
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {priorityTasks.map((pt, idx) => (
                   <div
                     key={pt.id}
-                    className="p-3 rounded-2xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 hover:bg-white transition-all flex items-start gap-2.5"
+                    className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 hover:bg-white transition-all flex items-start gap-2.5"
                   >
                     <span className="w-5 h-5 rounded-lg bg-blue-100 text-blue-700 font-extrabold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
                       {idx + 1}
@@ -342,7 +340,7 @@ export default function DashboardPage() {
                       <p className="text-xs font-bold text-slate-900 truncate">
                         {pt.title}
                       </p>
-                      <div className="flex items-center gap-2 mt-1">
+                      <div className="flex items-center gap-2 mt-0.5 sm:mt-1">
                         <span className="text-[10px] font-semibold text-slate-500">
                           {pt.status}
                         </span>
@@ -360,8 +358,8 @@ export default function DashboardPage() {
           </div>
 
           {/* 2. Team Workload Widget */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-5 shadow-premium-sm">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
+            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 mb-2.5 sm:mb-3">
               <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
                 <Users className="w-4 h-4 text-blue-600" />
                 <span>Team Workload</span>
@@ -374,13 +372,13 @@ export default function DashboardPage() {
               </Link>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-2.5 sm:space-y-3.5">
               {usersList.slice(0, 4).map((u) => {
                 const userTasks = tasks.filter((t) => t.assignedUserId === u.id);
                 const progress = totalTasks > 0 ? Math.round((userTasks.length / totalTasks) * 100) : 0;
 
                 return (
-                  <div key={u.id} className="space-y-1.5">
+                  <div key={u.id} className="space-y-1 sm:space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-slate-800 truncate">
                         {u.name}
@@ -391,9 +389,9 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-slate-100 rounded-full h-1.5 sm:h-2 overflow-hidden">
                       <div
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                        className="bg-blue-600 h-full rounded-full transition-all duration-300"
                         style={{ width: `${Math.max(progress, 15)}%` }}
                       />
                     </div>
@@ -404,8 +402,8 @@ export default function DashboardPage() {
           </div>
 
           {/* 3. Status Distribution Widget */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-5 shadow-premium-sm">
-            <h3 className="text-sm font-extrabold text-slate-900 tracking-tight pb-3 border-b border-slate-100 mb-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
+            <h3 className="text-sm font-extrabold text-slate-900 tracking-tight pb-2.5 sm:pb-3 border-b border-slate-100 mb-3 sm:mb-4">
               Status Distribution
             </h3>
 

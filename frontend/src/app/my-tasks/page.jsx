@@ -232,29 +232,29 @@ export default function MyTasksPage() {
       </div>
 
       {/* Workload Progress Card */}
-      <div className="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-premium-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-extrabold text-sm shadow-2xs shrink-0">
+      <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-premium-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-extrabold text-xs sm:text-sm shadow-2xs shrink-0">
             {user.name.charAt(0).toUpperCase()}
           </div>
           <div>
-            <p className="text-xs font-bold text-slate-500">Personal Sprint Completion</p>
-            <p className="text-sm sm:text-base font-extrabold text-slate-900">
-              {countCompleted} of {countAll} tasks completed ({completionPercent}%)
+            <p className="text-[11px] sm:text-xs font-bold text-slate-500">Personal Sprint Completion</p>
+            <p className="text-xs sm:text-base font-extrabold text-slate-900">
+              {countCompleted} of {countAll} completed ({completionPercent}%)
             </p>
           </div>
         </div>
 
-        <div className="w-full sm:w-64 bg-slate-100 rounded-full h-2.5 overflow-hidden">
+        <div className="w-full sm:w-64 bg-slate-100 rounded-full h-2 sm:h-2.5 overflow-hidden">
           <div
-            className="bg-gradient-to-r from-blue-600 to-emerald-500 h-2.5 rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-blue-600 to-emerald-500 h-full rounded-full transition-all duration-500"
             style={{ width: `${completionPercent}%` }}
           />
         </div>
       </div>
 
-      {/* Filter Tabs Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none border-b border-slate-200/80">
+      {/* Filter Tabs Bar (Horizontally scrollable on mobile) */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none border-b border-slate-200/80">
         {tabList.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -262,7 +262,7 @@ export default function MyTasksPage() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                 isActive
                   ? tab.isBlockedTab
                     ? 'bg-amber-100 text-amber-900 border border-amber-300/80 shadow-2xs'
@@ -289,15 +289,15 @@ export default function MyTasksPage() {
       </div>
 
       {/* Search & Filter Toolbar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-premium-sm flex flex-col md:flex-row gap-3.5 items-stretch md:items-center justify-between">
+      <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-premium-sm flex flex-col md:flex-row gap-2.5 sm:gap-3.5 items-stretch md:items-center justify-between">
         {/* Search Box */}
-        <div className="relative flex-1 min-w-[220px]">
+        <div className="relative flex-1 min-w-[200px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search your assigned tasks..."
+            placeholder="Search your tasks..."
             className="w-full pl-10 pr-9 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 bg-slate-50/60 hover:border-slate-300 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
           />
           {searchQuery && (
@@ -312,7 +312,7 @@ export default function MyTasksPage() {
         </div>
 
         {/* Filter Controls */}
-        <div className="flex items-center gap-2.5 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500">
             <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400" />
             <span>Priority:</span>
@@ -321,12 +321,12 @@ export default function MyTasksPage() {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white hover:border-slate-300 focus:border-blue-500 transition-all"
+            className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white hover:border-slate-300 focus:border-blue-500 transition-all"
           >
             <option value="ALL">All Priorities</option>
-            <option value="High">High Priority</option>
-            <option value="Medium">Medium Priority</option>
-            <option value="Low">Low Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
 
           <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 ml-1">
@@ -337,10 +337,10 @@ export default function MyTasksPage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white hover:border-slate-300 focus:border-blue-500 transition-all"
+            className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 bg-white hover:border-slate-300 focus:border-blue-500 transition-all"
           >
-            <option value="DEFAULT">Default Order</option>
-            <option value="PRIORITY">Priority (Highest first)</option>
+            <option value="DEFAULT">Default</option>
+            <option value="PRIORITY">Priority</option>
             <option value="TITLE">Title (A-Z)</option>
           </select>
 

@@ -98,18 +98,18 @@ export default function EditTaskPage() {
       </nav>
 
       {/* 2. Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-2xs shrink-0">
-            <Edit3 className="w-5 h-5" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-2xs shrink-0">
+            <Edit3 className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">{task.title}</h1>
-            <div className="flex items-center gap-2.5 mt-1 flex-wrap">
+            <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">{task.title}</h1>
+            <div className="flex items-center gap-1.5 sm:gap-2.5 mt-1 flex-wrap">
               <StatusBadge status={task.status} isBlocked={isBlocked} />
               <PriorityBadge priority={task.priority} />
               {task.assignedUser && (
-                <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
+                <span className="text-[11px] sm:text-xs text-slate-500 font-medium flex items-center gap-1">
                   <User className="w-3.5 h-3.5 text-slate-400" />
                   <span>{task.assignedUser.name}</span>
                 </span>
@@ -120,26 +120,26 @@ export default function EditTaskPage() {
 
         <Link
           href="/all-tasks"
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl shadow-2xs transition-all self-start sm:self-center"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl shadow-2xs transition-all self-start sm:self-center"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Directory</span>
+          <span>Back</span>
         </Link>
       </div>
 
-      {/* 3. Two-Column Layout: Form on Left (7 cols), Dependency Inspector & Details on Right (5 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      {/* 3. Single-Column on Mobile, Two-Column on Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
         {/* Left: Task Form Editor */}
         <div className="lg:col-span-7">
           <TaskForm initialData={task} isEdit={true} onSubmit={handleUpdateTask} />
         </div>
 
         {/* Right: Dependency Inspector & Metadata Cards */}
-        <div className="lg:col-span-5 space-y-5">
+        <div className="lg:col-span-5 space-y-4 sm:space-y-5">
           {/* Dependency Inspector Card */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-6 shadow-premium-sm space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-6 shadow-premium-sm space-y-3 sm:space-y-4">
+            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100">
+              <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-1.5 sm:gap-2">
                 <LinkIcon className="w-4 h-4 text-blue-600" />
                 <span>Dependency Inspector</span>
               </h3>
@@ -159,16 +159,16 @@ export default function EditTaskPage() {
             </div>
 
             {task.dependsOnTask ? (
-              <div className="space-y-3 text-xs">
+              <div className="space-y-2.5 sm:space-y-3 text-xs">
                 {/* Visual Flow */}
-                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5">
+                <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500 font-medium">This Task:</span>
                     <span className="font-bold text-slate-800 truncate max-w-[160px]">{task.title}</span>
                   </div>
 
-                  <div className="flex items-center justify-center py-1">
-                    <div className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[10px] font-bold">
+                  <div className="flex items-center justify-center py-0.5">
+                    <div className="px-2 py-0.2 rounded-full bg-blue-100 text-blue-800 text-[9px] font-bold">
                       ⬇ depends upon
                     </div>
                   </div>
@@ -195,42 +195,42 @@ export default function EditTaskPage() {
                 </div>
 
                 {isBlocked ? (
-                  <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 flex items-start gap-2 text-[11px]">
-                    <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div className="p-2.5 sm:p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 flex items-start gap-2 text-[11px]">
+                    <ShieldAlert className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
                     <span>
-                      This task cannot be marked as Done until "{task.dependsOnTask.title}" reaches <strong>Done</strong> status.
+                      Must reach <strong>Done</strong> status first to unlock "{task.title}".
                     </span>
                   </div>
                 ) : (
-                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 flex items-start gap-2 text-[11px]">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <div className="p-2.5 sm:p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 flex items-start gap-2 text-[11px]">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                     <span>
-                      Prerequisite is satisfied! This task is ready to be executed and marked Done.
+                      Prerequisite satisfied! Ready to be marked Done.
                     </span>
                   </div>
                 )}
 
                 <Link
                   href={`/edit-task/${task.dependsOnTaskId}`}
-                  className="block text-center py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors"
+                  className="block text-center py-1.5 sm:py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors"
                 >
                   View Prerequisite Task &rarr;
                 </Link>
               </div>
             ) : (
-              <div className="text-center py-6 text-slate-400 space-y-1">
-                <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto mb-1" />
+              <div className="text-center py-4 sm:py-6 text-slate-400 space-y-1">
+                <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 mx-auto mb-1" />
                 <p className="text-xs font-bold text-slate-700">No Prerequisites Attached</p>
                 <p className="text-[11px] text-slate-500">
-                  This task is completely independent and has no blocking requirements.
+                  This task is completely independent.
                 </p>
               </div>
             )}
           </div>
 
           {/* Quick Task Info Card */}
-          <div className="bg-white rounded-3xl border border-slate-200/90 p-5 shadow-premium-sm space-y-3 text-xs">
-            <h4 className="font-bold text-slate-900 border-b border-slate-100 pb-2">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm space-y-2.5 sm:space-y-3 text-xs">
+            <h4 className="font-bold text-slate-900 border-b border-slate-100 pb-2 text-xs sm:text-sm">
               System Audit Info
             </h4>
             <div className="flex items-center justify-between text-slate-600">
@@ -239,8 +239,8 @@ export default function EditTaskPage() {
             </div>
             <div className="flex items-center justify-between text-slate-600">
               <span>Created At:</span>
-              <span className="font-medium text-slate-800">
-                {task.createdAt ? new Date(task.createdAt).toLocaleString() : 'Recent'}
+              <span className="font-medium text-slate-800 text-[11px]">
+                {task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'Recent'}
               </span>
             </div>
             <div className="flex items-center justify-between text-slate-600">

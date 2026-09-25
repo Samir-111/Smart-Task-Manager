@@ -40,32 +40,32 @@ export function StatsCard({
 
   return (
     <div
-      className={`relative p-4 sm:p-5 rounded-2xl border bg-white shadow-premium-sm hover:shadow-premium-hover transition-all duration-200 hover:-translate-y-0.5 group ${style.card}`}
+      className={`relative p-3.5 sm:p-5 rounded-2xl border bg-white shadow-premium-sm hover:shadow-premium-hover transition-all duration-200 hover:-translate-y-0.5 group flex flex-col justify-between ${style.card}`}
     >
-      <div className="flex items-center gap-3.5 mb-2">
+      <div className="flex items-center gap-2.5 sm:gap-3.5 mb-1.5 sm:mb-2">
         <div
-          className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 ${style.iconBox}`}
+          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 ${style.iconBox}`}
         >
-          {icon}
+          {React.cloneElement(icon, { className: 'w-4 h-4 sm:w-5 sm:h-5' })}
         </div>
-        <div className="min-w-0">
-          <p className="text-xs font-bold text-slate-500 tracking-tight">
+        <div className="min-w-0 flex-1">
+          <p className="text-[11px] sm:text-xs font-bold text-slate-500 tracking-tight truncate">
             {title}
           </p>
-          <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none mt-0.5">
+          <p className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none mt-0.5">
             {count}
           </p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500">
-        <span className="text-[11px] font-medium text-slate-500 truncate">
-          {trend || 'Active in sprint'}
+      <div className="flex items-center justify-between mt-1.5 pt-1.5 sm:mt-2 sm:pt-2 border-t border-slate-100 text-xs text-slate-500">
+        <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 truncate">
+          {trend || 'Active'}
         </span>
         {typeof progressPercent === 'number' && (
-          <div className="w-10 bg-slate-100 rounded-full h-1.5 overflow-hidden shrink-0 ml-2">
+          <div className="w-8 sm:w-10 bg-slate-100 rounded-full h-1 sm:h-1.5 overflow-hidden shrink-0 ml-1.5 sm:ml-2">
             <div
-              className={`h-1.5 rounded-full ${
+              className={`h-full rounded-full ${
                 variant === 'success'
                   ? 'bg-emerald-500'
                   : variant === 'warning'

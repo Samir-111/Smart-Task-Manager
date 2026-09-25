@@ -47,7 +47,7 @@ export default function AppLayout({ children }) {
           title={getPageTitle()}
         />
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto animate-fade-in">
+        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto animate-fade-in">
           {children}
         </main>
       </div>
