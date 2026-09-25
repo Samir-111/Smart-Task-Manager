@@ -1,4 +1,8 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+let rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://smart-task-manager-9v4z.onrender.com/api';
+if (!rawApiUrl.endsWith('/api')) {
+  rawApiUrl = rawApiUrl.replace(/\/+$/, '') + '/api';
+}
+const API_BASE_URL = rawApiUrl;
 
 // Helper function for API fetch requests
 async function request(endpoint, options = {}) {
