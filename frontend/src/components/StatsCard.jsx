@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export function StatsCard({
   title,
@@ -7,6 +8,7 @@ export function StatsCard({
   variant = 'default',
   trend,
   progressPercent,
+  href,
 }) {
   const variantStyles = {
     default: {
@@ -38,10 +40,10 @@ export function StatsCard({
 
   const style = variantStyles[variant] || variantStyles.default;
 
-  return (
-    <div
-      className={`relative p-3.5 sm:p-5 rounded-2xl border bg-white shadow-premium-sm hover:shadow-premium-hover transition-all duration-200 hover:-translate-y-0.5 group flex flex-col justify-between ${style.card}`}
-    >
+  const cardClasses = `relative p-3.5 sm:p-5 rounded-2xl border bg-white shadow-premium-sm hover:shadow-premium-hover transition-all duration-200 hover:-translate-y-0.5 group flex flex-col justify-between ${style.card} ${href ? 'cursor-pointer' : ''}`;
+
+  const content = (
+    <>
       <div className="flex items-center gap-2.5 sm:gap-3.5 mb-1.5 sm:mb-2">
         <div
           className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 ${style.iconBox}`}
@@ -77,7 +79,17 @@ export function StatsCard({
           </div>
         )}
       </div>
-    </div>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={cardClasses}>
+        {content}
+      </Link>
+    );
+  }
+
+  return <div className={cardClasses}>{content}</div>;
 }
 

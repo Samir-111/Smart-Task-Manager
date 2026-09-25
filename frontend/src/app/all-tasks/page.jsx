@@ -20,12 +20,16 @@ import {
   SlidersHorizontal,
   LayoutList,
   LayoutGrid,
+  Download,
 } from 'lucide-react';
+import { triggerConfetti } from '../../utils/confetti';
+import { exportTasksToCsv } from '../../utils/exportCsv';
 
 function AllTasksContent() {
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const urlQuery = searchParams.get('q') || '';
+  const urlStatus = searchParams.get('status') || 'ALL';
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +38,7 @@ function AllTasksContent() {
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'grid'
 
   // Filters
-  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [statusFilter, setStatusFilter] = useState(urlStatus);
   const [priorityFilter, setPriorityFilter] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState(urlQuery);
 
@@ -48,6 +52,12 @@ function AllTasksContent() {
       setSearchQuery(urlQuery);
     }
   }, [urlQuery]);
+
+  useEffect(() => {
+    if (urlStatus) {
+      setStatusFilter(urlStatus);
+    }
+  }, [urlStatus]);
 
   const fetchTasks = useCallback(async (showRefreshing = false) => {
     if (showRefreshing) setRefreshing(true);
@@ -78,7 +88,8 @@ function AllTasksContent() {
     setCompletingId(null);
 
     if (res.success) {
-      setFeedback({ type: 'success', text: `Marked "${task.title}" as complete.` });
+      triggerConfetti();
+      setFeedback({ type: 'success', text: `🎉 Completed "${task.title}"!` });
       fetchTasks(true);
     } else {
       setFeedback({ type: 'error', text: res.message || 'Failed to complete task.' });
@@ -155,6 +166,17 @@ function AllTasksContent() {
               <LayoutGrid className="w-4 h-4" />
             </button>
           </div>
+
+          <button
+            type="button"
+            onClick={() => exportTasksToCsv(filteredTasks, 'smarttask_all_tasks.csv')}
+            disabled={filteredTasks.length === 0}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl shadow-2xs transition-all active:scale-98 disabled:opacity-50"
+            title="Export filtered tasks as CSV"
+          >
+            <Download className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="hidden sm:inline">Export CSV</span>
+          </button>
 
           <button
             type="button"

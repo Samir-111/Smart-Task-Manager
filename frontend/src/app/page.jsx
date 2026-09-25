@@ -20,7 +20,12 @@ import {
   Search,
   Check,
   ListTodo,
+  Download,
+  Activity,
+  Flame,
 } from 'lucide-react';
+import { triggerConfetti } from '../utils/confetti';
+import { exportTasksToCsv } from '../utils/exportCsv';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -69,7 +74,8 @@ export default function DashboardPage() {
     setCompletingId(null);
 
     if (res.success) {
-      setFeedbackMessage({ type: 'success', text: `Marked "${task.title}" as completed.` });
+      triggerConfetti();
+      setFeedbackMessage({ type: 'success', text: `🎉 Amazing! Marked "${task.title}" as completed.` });
       fetchDashboardData(true);
     } else {
       setFeedbackMessage({
@@ -158,7 +164,17 @@ export default function DashboardPage() {
           </div>
 
           {/* Banner Quick Actions */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-start sm:self-auto pt-1 sm:pt-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-start sm:self-auto pt-1 sm:pt-0 flex-wrap">
+            <button
+              type="button"
+              onClick={() => exportTasksToCsv(tasks, 'smarttask_sprint_report.csv')}
+              disabled={tasks.length === 0}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl shadow-2xs transition-all active:scale-98 disabled:opacity-50"
+              title="Download CSV spreadsheet of all tasks"
+            >
+              <Download className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Export CSV</span>
+            </button>
             <button
               type="button"
               onClick={() => fetchDashboardData(true)}
@@ -215,6 +231,7 @@ export default function DashboardPage() {
           variant="primary"
           trend="+2 this wk"
           progressPercent={100}
+          href="/all-tasks"
         />
         <StatsCard
           title="To Do"
@@ -223,6 +240,7 @@ export default function DashboardPage() {
           variant="warning"
           trend={`${todoPercent}% total`}
           progressPercent={todoPercent}
+          href="/all-tasks?status=To Do"
         />
         <StatsCard
           title="In Progress"
@@ -231,6 +249,7 @@ export default function DashboardPage() {
           variant="info"
           trend={`${inProgressPercent}% total`}
           progressPercent={inProgressPercent}
+          href="/all-tasks?status=In Progress"
         />
         <StatsCard
           title="Completed"
@@ -239,6 +258,7 @@ export default function DashboardPage() {
           variant="success"
           trend={`${completionRate}% total`}
           progressPercent={completionRate}
+          href="/all-tasks?status=Done"
         />
       </div>
 
@@ -510,6 +530,50 @@ export default function DashboardPage() {
                   <span className="font-bold">{todoTasks} ({todoPercent}%)</span>
                 </div>
               </div>
+            </div>
+          </div>
+          {/* 4. Live Collaborative Activity Feed */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
+            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 mb-2.5 sm:mb-3">
+              <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                <Activity className="w-4 h-4 text-emerald-600 animate-pulse" />
+                <span>Sprint Pulse</span>
+              </h3>
+              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                Live Feed
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              {tasks.slice(0, 3).map((t, idx) => (
+                <div key={t.id || idx} className="flex items-start gap-2.5 text-xs">
+                  <div className={`w-7 h-7 rounded-xl flex items-center justify-center font-bold text-[11px] shrink-0 ${
+                    t.status === 'Done' ? 'bg-emerald-100 text-emerald-700' :
+                    t.isBlocked ? 'bg-amber-100 text-amber-700' :
+                    'bg-blue-100 text-blue-700'
+                  }`}>
+                    {t.assignedUser?.name ? t.assignedUser.name.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-slate-800 leading-tight">
+                      <span className="font-bold">{t.assignedUser?.name || 'Team member'}</span>{' '}
+                      <span className="text-slate-500">
+                        {t.status === 'Done' ? 'completed' : t.isBlocked ? 'is blocked on' : 'is working on'}
+                      </span>{' '}
+                      <span className="font-semibold text-slate-900 truncate block sm:inline">
+                        &ldquo;{t.title}&rdquo;
+                      </span>
+                    </p>
+                    <span className="text-[10px] font-medium text-slate-400 mt-0.5 block">
+                      {idx === 0 ? 'Just now' : idx === 1 ? '15m ago' : '1h ago'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+              {tasks.length === 0 && (
+                <p className="text-xs text-slate-400 text-center py-2">No activity yet. Create a task to get started!</p>
+              )}
             </div>
           </div>
         </div>
