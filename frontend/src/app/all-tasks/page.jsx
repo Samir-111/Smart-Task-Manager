@@ -132,8 +132,8 @@ function AllTasksContent() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">All Tasks Directory</h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">All Tasks Directory</h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
             Manage system-wide tasks and inspect dependency links ({filteredTasks.length} shown of {tasks.length})
           </p>
         </div>
@@ -273,8 +273,8 @@ function AllTasksContent() {
         <div
           className={`p-4 rounded-xl border text-xs sm:text-sm flex items-center justify-between shadow-2xs animate-slide-up ${
             feedback.type === 'success'
-              ? 'bg-emerald-50/90 border-emerald-200 text-emerald-900'
-              : 'bg-red-50/90 border-red-200 text-red-900'
+              ? 'bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-900/50 text-emerald-900 dark:text-emerald-300'
+              : 'bg-red-50/90 dark:bg-red-950/40 border-red-200 dark:border-red-900/50 text-red-900 dark:text-red-300'
           }`}
         >
           <div className="flex items-center gap-2">
@@ -297,31 +297,31 @@ function AllTasksContent() {
 
       {/* Task Content */}
       {loading ? (
-        <div className="bg-white p-12 rounded-2xl border border-slate-200 text-center">
-          <Loader2 className="w-6 h-6 animate-spin text-blue-600 mx-auto mb-2" />
-          <p className="text-xs text-slate-500 font-medium">Loading tasks directory...</p>
+        <div className="bg-white dark:bg-slate-900 p-12 rounded-2xl border border-slate-100 dark:border-slate-800 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+          <Loader2 className="w-6 h-6 animate-spin text-indigo-600 dark:text-indigo-400 mx-auto mb-2" />
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Loading tasks directory...</p>
         </div>
       ) : filteredTasks.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-12 text-center shadow-premium-sm">
-          <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-12 text-center shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+          <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-3">
             <ListTodo className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-slate-800">No matching tasks found</h3>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1 mb-5 max-w-sm mx-auto">
+          <h3 className="text-base font-bold text-slate-800 dark:text-white">No tasks match your filters</h3>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 mb-5 max-w-sm mx-auto">
             {searchQuery || statusFilter !== 'ALL' || priorityFilter !== 'ALL'
               ? 'Try adjusting your filters or search keywords.'
               : 'There are no tasks in the system yet.'}
           </p>
           <Link
             href="/create-task"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs active:scale-98 transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>Create New Task</span>
           </Link>
         </div>
       ) : viewMode === 'table' ? (
-        <div className="bg-white rounded-2xl border border-slate-200/90 p-2 shadow-premium-sm">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-2 sm:p-3 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
           <TaskTable
             tasks={filteredTasks}
             onComplete={handleComplete}

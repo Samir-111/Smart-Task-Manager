@@ -142,11 +142,18 @@ export default function DashboardPage() {
   const blockedDash = (blockedPercent / 100) * circumference;
   const todoDash = (todoPercent / 100) * circumference;
 
+  // Time-aware greeting
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
+
   return (
     <div className="space-y-5 sm:space-y-6 animate-fade-in">
-      {/* 1. Hero Greeting Banner (Balanced Medium Slate & Indigo Aesthetic) */}
+      {/* 1. Hero Greeting Banner */}
       <div className="relative overflow-hidden bg-gradient-to-r from-slate-100/90 via-indigo-50/80 to-blue-100/70 dark:from-slate-800/90 dark:via-slate-800/95 dark:to-indigo-950/60 rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-slate-200/90 dark:border-slate-700/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
-        {/* Subtle Ambient Glows */}
         <div className="absolute top-0 right-1/4 -mt-8 w-60 h-60 bg-indigo-200/40 dark:bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/3 -mb-8 w-40 h-40 bg-blue-200/30 dark:bg-blue-600/10 rounded-full blur-2xl pointer-events-none" />
 
@@ -160,7 +167,7 @@ export default function DashboardPage() {
 
             {/* Greeting Header */}
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 flex-wrap">
-              <span>Good morning,</span>
+              <span>{getGreeting()},</span>
               {user ? (
                 <span className="text-indigo-600 dark:text-indigo-400 capitalize font-black">
                   {user.name}
@@ -172,7 +179,7 @@ export default function DashboardPage() {
 
             {/* Subtitle */}
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-snug font-medium">
-              Here&apos;s what&apos;s happening with your tasks and project dependencies today.
+              Here is what is happening with your team tasks and project dependencies today.
             </p>
           </div>
 
@@ -213,15 +220,15 @@ export default function DashboardPage() {
         <div
           className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border text-xs sm:text-sm flex items-center justify-between shadow-2xs animate-slide-up ${
             feedbackMessage.type === 'success'
-              ? 'bg-emerald-50/90 border-emerald-200 text-emerald-900'
-              : 'bg-red-50/90 border-red-200 text-red-900'
+              ? 'bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-900/50 text-emerald-900 dark:text-emerald-300'
+              : 'bg-red-50/90 dark:bg-red-950/40 border-red-200 dark:border-red-900/50 text-red-900 dark:text-red-300'
           }`}
         >
           <div className="flex items-center gap-2">
             {feedbackMessage.type === 'success' ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             ) : (
-              <ShieldAlert className="w-4 h-4 text-red-600 shrink-0" />
+              <ShieldAlert className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0" />
             )}
             <span className="font-semibold">{feedbackMessage.text}</span>
           </div>
@@ -240,55 +247,55 @@ export default function DashboardPage() {
         <StatsCard
           title="Total Tasks"
           count={totalTasks}
-          icon={<LayoutGrid className="w-5 h-5 text-blue-600" />}
+          icon={<LayoutGrid className="w-5 h-5" />}
           variant="primary"
-          trend="+2 this wk"
+          trend="Sprint total"
           progressPercent={100}
           href="/all-tasks"
         />
         <StatsCard
           title="To Do"
           count={todoTasks}
-          icon={<Clock className="w-5 h-5 text-amber-600" />}
+          icon={<Clock className="w-5 h-5" />}
           variant="warning"
-          trend={`${todoPercent}% total`}
+          trend={`${todoPercent}% of tasks`}
           progressPercent={todoPercent}
           href="/all-tasks?status=To Do"
         />
         <StatsCard
           title="In Progress"
           count={inProgressTasks}
-          icon={<Loader2 className="w-5 h-5 text-cyan-600" />}
+          icon={<Loader2 className="w-5 h-5" />}
           variant="info"
-          trend={`${inProgressPercent}% total`}
+          trend={`${inProgressPercent}% of tasks`}
           progressPercent={inProgressPercent}
           href="/all-tasks?status=In Progress"
         />
         <StatsCard
           title="Completed"
           count={completedTasks}
-          icon={<CheckCircle2 className="w-5 h-5 text-emerald-600" />}
+          icon={<CheckCircle2 className="w-5 h-5" />}
           variant="success"
-          trend={`${completionRate}% total`}
+          trend={`${completionRate}% finished`}
           progressPercent={completionRate}
           href="/all-tasks?status=Done"
         />
       </div>
 
-      {/* 4. Main Multi-Column Section */}
+      {/* 4. Main Section: 66.7% Left Content + 33.3% Right Widgets */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-        {/* Left / Main Section (8 cols) */}
+        {/* Left Column (8 cols = ~67%) */}
         <div className="lg:col-span-8 space-y-5">
-          {/* Recent Tasks Card with Table / Mobile Cards */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-3.5 sm:p-6 shadow-premium-sm">
+          {/* Recent Tasks Card */}
+          <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-100 dark:border-slate-800 p-4 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
             {/* Header with Search and View All */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 mb-3 sm:mb-4">
               <div>
-                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
+                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">
                   Recent Tasks
                 </h2>
-                <p className="text-[11px] sm:text-xs text-slate-500">
-                  Latest tasks across the system
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+                  Latest tasks across your workspace
                 </p>
               </div>
 
@@ -299,14 +306,14 @@ export default function DashboardPage() {
                     type="text"
                     value={searchTableQuery}
                     onChange={(e) => setSearchTableQuery(e.target.value)}
-                    placeholder="Search..."
-                    className="pl-8 pr-3 py-1.5 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:border-blue-500 transition-all w-full sm:w-44"
+                    placeholder="Search recent..."
+                    className="pl-8 pr-3 py-1.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100/70 dark:hover:bg-slate-800/80 focus:bg-white dark:focus:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-indigo-500 transition-all w-full sm:w-44"
                   />
                 </div>
 
                 <Link
                   href="/all-tasks"
-                  className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline shrink-0"
+                  className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 hover:underline shrink-0"
                 >
                   View All &rarr;
                 </Link>
@@ -316,15 +323,15 @@ export default function DashboardPage() {
             {/* Table or Empty State */}
             {loading ? (
               <div className="py-12 text-center text-slate-400">
-                <Loader2 className="w-6 h-6 animate-spin mx-auto text-blue-600 mb-2" />
+                <Loader2 className="w-6 h-6 animate-spin mx-auto text-indigo-600 mb-2" />
                 <span className="text-xs font-medium">Loading tasks...</span>
               </div>
             ) : filteredRecentTasks.length === 0 ? (
-              <div className="p-8 text-center bg-slate-50/60 rounded-2xl border border-dashed border-slate-200">
-                <ListTodo className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                <p className="text-xs font-bold text-slate-700">No tasks found</p>
-                <p className="text-[11px] text-slate-500 mt-0.5">
-                  Create a task to populate the table.
+              <div className="p-8 text-center bg-slate-50/60 dark:bg-slate-800/40 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+                <ListTodo className="w-8 h-8 text-slate-300 dark:text-slate-600 mx-auto mb-2" />
+                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">No tasks match your search.</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  Try another keyword or create a new task.
                 </p>
               </div>
             ) : (
@@ -339,24 +346,24 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Right Section (4 cols) */}
+        {/* Right Column (4 cols = ~33%) */}
         <div className="lg:col-span-4 space-y-4 sm:space-y-5">
           {/* 1. Top Priorities Widget */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
-            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 mb-2.5 sm:mb-3">
-              <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-100 dark:border-slate-800 p-4 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 dark:border-slate-800 mb-2.5 sm:mb-3">
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                 <span>Top Priorities</span>
               </h3>
-              <span className="text-[10px] font-extrabold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-extrabold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 border border-red-200/80 dark:border-red-900/60 px-2 py-0.5 rounded-full">
                 High Priority
               </span>
             </div>
 
             {priorityTasks.length === 0 ? (
-              <div className="py-3.5 px-3 text-center flex items-center justify-center gap-2 bg-slate-50/60 rounded-xl sm:rounded-2xl border border-dashed border-slate-200">
+              <div className="py-3.5 px-3 text-center flex items-center justify-center gap-2 bg-slate-50/60 dark:bg-slate-800/40 rounded-xl sm:rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                <p className="text-xs font-medium text-slate-600">
-                  No active high-priority tasks in sprint.
+                <p className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                  You&apos;re all caught up on top priorities!
                 </p>
               </div>
             ) : (
@@ -364,21 +371,21 @@ export default function DashboardPage() {
                 {priorityTasks.map((pt, idx) => (
                   <div
                     key={pt.id}
-                    className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 hover:bg-white transition-all flex items-start gap-2.5"
+                    className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800/80 hover:border-slate-200 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800/80 transition-all flex items-start gap-2.5"
                   >
-                    <span className="w-5 h-5 rounded-lg bg-blue-100 text-blue-700 font-extrabold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-extrabold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="text-xs font-bold text-slate-900 truncate">
+                      <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
                         {pt.title}
                       </p>
                       <div className="flex items-center gap-2 mt-0.5 sm:mt-1">
-                        <span className="text-[10px] font-semibold text-slate-500">
+                        <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
                           {pt.status}
                         </span>
                         {pt.assignedUser && (
-                          <span className="text-[10px] text-blue-600 font-semibold truncate">
+                          <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold truncate">
                             • {pt.assignedUser.name}
                           </span>
                         )}
@@ -391,15 +398,15 @@ export default function DashboardPage() {
           </div>
 
           {/* 2. Team Workload Widget */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
-            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 mb-2.5 sm:mb-3">
-              <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                <Users className="w-4 h-4 text-blue-600" />
+          <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-100 dark:border-slate-800 p-4 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 dark:border-slate-800 mb-2.5 sm:mb-3">
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                <Users className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span>Team Workload</span>
               </h3>
               <Link
                 href="/users"
-                className="text-[11px] font-bold text-blue-600 hover:underline"
+                className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
               >
                 View All
               </Link>
@@ -413,19 +420,18 @@ export default function DashboardPage() {
                 return (
                   <div key={u.id} className="space-y-1 sm:space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-slate-800 truncate">
+                      <span className="font-bold text-slate-800 dark:text-slate-200 truncate">
                         {u.name}
                       </span>
-                      <span className="text-[11px] font-extrabold text-slate-500 shrink-0">
+                      <span className="text-[11px] font-extrabold text-slate-500 dark:text-slate-400 shrink-0">
                         {userTasks.length} {userTasks.length === 1 ? 'task' : 'tasks'}
                       </span>
                     </div>
 
-                    {/* Progress Bar */}
-                    <div className="w-full bg-slate-100 rounded-full h-1.5 sm:h-2 overflow-hidden">
+                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 sm:h-2 overflow-hidden">
                       <div
-                        className="bg-blue-600 h-full rounded-full transition-all duration-300"
-                        style={{ width: `${Math.max(progress, 15)}%` }}
+                        className="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full transition-all duration-300"
+                        style={{ width: `${Math.max(progress, 12)}%` }}
                       />
                     </div>
                   </div>
@@ -435,21 +441,22 @@ export default function DashboardPage() {
           </div>
 
           {/* 3. Status Distribution Widget */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
-            <h3 className="text-sm font-extrabold text-slate-900 tracking-tight pb-2.5 sm:pb-3 border-b border-slate-100 mb-3 sm:mb-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-100 dark:border-slate-800 p-4 sm:p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+            <h3 className="text-sm font-extrabold text-slate-900 dark:text-white tracking-tight pb-2.5 sm:pb-3 border-b border-slate-100 dark:border-slate-800 mb-3 sm:mb-4">
               Status Distribution
             </h3>
 
             <div className="flex items-center gap-4">
-              {/* Circular Chart Representation */}
-              <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
+              {/* Circular Chart */}
+              <div className="relative w-22 h-22 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center">
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
-                    stroke="#f1f5f9"
-                    strokeWidth="12"
+                    stroke="currentColor"
+                    className="text-slate-100 dark:text-slate-800"
+                    strokeWidth="11"
                     fill="transparent"
                   />
                   {/* Done segment (Green) */}
@@ -458,40 +465,40 @@ export default function DashboardPage() {
                     cy="50"
                     r="38"
                     stroke="#10b981"
-                    strokeWidth="12"
+                    strokeWidth="11"
                     fill="transparent"
                     strokeDasharray={`${doneDash} ${circumference}`}
                     strokeDashoffset={0}
                   />
-                  {/* In Progress segment (Cyan) */}
+                  {/* In Progress segment (Sky) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
-                    stroke="#06b6d4"
-                    strokeWidth="12"
+                    stroke="#0284c7"
+                    strokeWidth="11"
                     fill="transparent"
                     strokeDasharray={`${inProgressDash} ${circumference}`}
                     strokeDashoffset={`-${doneDash}`}
                   />
-                  {/* Blocked segment (Orange) */}
+                  {/* Blocked segment (Amber) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
-                    stroke="#f97316"
-                    strokeWidth="12"
+                    stroke="#d97706"
+                    strokeWidth="11"
                     fill="transparent"
                     strokeDasharray={`${blockedDash} ${circumference}`}
                     strokeDashoffset={`-${doneDash + inProgressDash}`}
                   />
-                  {/* To Do segment (Amber) */}
+                  {/* To Do segment (Slate) */}
                   <circle
                     cx="50"
                     cy="50"
                     r="38"
-                    stroke="#fbbf24"
-                    strokeWidth="12"
+                    stroke="#64748b"
+                    strokeWidth="11"
                     fill="transparent"
                     strokeDasharray={`${todoDash} ${circumference}`}
                     strokeDashoffset={`-${doneDash + inProgressDash + blockedDash}`}
@@ -500,7 +507,7 @@ export default function DashboardPage() {
 
                 {/* Center text */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <span className="text-lg font-black text-slate-900 leading-none">
+                  <span className="text-lg font-black text-slate-900 dark:text-white leading-none">
                     {totalTasks}
                   </span>
                   <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">
@@ -509,9 +516,9 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* Legend Table */}
+              {/* Legend */}
               <div className="flex-1 space-y-1.5 text-xs">
-                <div className="flex items-center justify-between text-slate-700">
+                <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
                   <span className="flex items-center gap-1.5 font-medium">
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     Done
@@ -519,74 +526,30 @@ export default function DashboardPage() {
                   <span className="font-bold">{completedTasks} ({completionRate}%)</span>
                 </div>
 
-                <div className="flex items-center justify-between text-slate-700">
+                <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
                   <span className="flex items-center gap-1.5 font-medium">
-                    <span className="w-2 h-2 rounded-full bg-cyan-500" />
+                    <span className="w-2 h-2 rounded-full bg-sky-600" />
                     In Progress
                   </span>
                   <span className="font-bold">{inProgressTasks} ({inProgressPercent}%)</span>
                 </div>
 
-                <div className="flex items-center justify-between text-slate-700">
+                <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
                   <span className="flex items-center gap-1.5 font-medium">
-                    <span className="w-2 h-2 rounded-full bg-orange-500" />
+                    <span className="w-2 h-2 rounded-full bg-amber-600" />
                     Blocked
                   </span>
                   <span className="font-bold">{blockedTasks} ({blockedPercent}%)</span>
                 </div>
 
-                <div className="flex items-center justify-between text-slate-700">
+                <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
                   <span className="flex items-center gap-1.5 font-medium">
-                    <span className="w-2 h-2 rounded-full bg-amber-400" />
+                    <span className="w-2 h-2 rounded-full bg-slate-500" />
                     To Do
                   </span>
                   <span className="font-bold">{todoTasks} ({todoPercent}%)</span>
                 </div>
               </div>
-            </div>
-          </div>
-          {/* 4. Live Collaborative Activity Feed */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-premium-sm">
-            <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-100 mb-2.5 sm:mb-3">
-              <h3 className="text-sm font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                <Activity className="w-4 h-4 text-emerald-600 animate-pulse" />
-                <span>Sprint Pulse</span>
-              </h3>
-              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                Live Feed
-              </span>
-            </div>
-
-            <div className="space-y-3">
-              {tasks.slice(0, 3).map((t, idx) => (
-                <div key={t.id || idx} className="flex items-start gap-2.5 text-xs">
-                  <div className={`w-7 h-7 rounded-xl flex items-center justify-center font-bold text-[11px] shrink-0 ${
-                    t.status === 'Done' ? 'bg-emerald-100 text-emerald-700' :
-                    t.isBlocked ? 'bg-amber-100 text-amber-700' :
-                    'bg-blue-100 text-blue-700'
-                  }`}>
-                    {t.assignedUser?.name ? t.assignedUser.name.charAt(0).toUpperCase() : 'U'}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-slate-800 leading-tight">
-                      <span className="font-bold">{t.assignedUser?.name || 'Team member'}</span>{' '}
-                      <span className="text-slate-500">
-                        {t.status === 'Done' ? 'completed' : t.isBlocked ? 'is blocked on' : 'is working on'}
-                      </span>{' '}
-                      <span className="font-semibold text-slate-900 truncate block sm:inline">
-                        &ldquo;{t.title}&rdquo;
-                      </span>
-                    </p>
-                    <span className="text-[10px] font-medium text-slate-400 mt-0.5 block">
-                      {idx === 0 ? 'Just now' : idx === 1 ? '15m ago' : '1h ago'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-              {tasks.length === 0 && (
-                <p className="text-xs text-slate-400 text-center py-2">No activity yet. Create a task to get started!</p>
-              )}
             </div>
           </div>
         </div>
@@ -605,3 +568,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

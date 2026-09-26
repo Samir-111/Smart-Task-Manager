@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useAuth } from '../context/AuthContext';
 import { PriorityBadge } from './PriorityBadge';
 import { StatusBadge } from './StatusBadge';
-import { Check, Edit3, Trash2, User as UserIcon, Link as LinkIcon, ShieldAlert, Calendar, Lock } from 'lucide-react';
+import { Check, Edit3, Trash2, Link as LinkIcon, ShieldAlert, Calendar, Lock } from 'lucide-react';
 
 export function TaskCard({
   task,
@@ -33,7 +33,7 @@ export function TaskCard({
         isBlocked
           ? 'border-amber-300/80 dark:border-amber-900/60 bg-gradient-to-b from-white to-amber-50/20 dark:from-slate-900 dark:to-amber-950/20 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-amber-400'
           : isDone
-          ? 'border-slate-100 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-900/40 opacity-90 shadow-2xs'
+          ? 'border-slate-100 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/60 shadow-2xs'
           : 'border-slate-100 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-premium-hover hover:border-slate-200 dark:hover:border-slate-700 hover:-translate-y-0.5'
       }`}
     >
@@ -56,7 +56,9 @@ export function TaskCard({
         {/* Task Title */}
         <h3
           className={`font-bold text-xs sm:text-sm md:text-base leading-snug mb-1 transition-colors ${
-            isDone ? 'text-slate-400 dark:text-slate-500 line-through' : 'text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400'
+            isDone
+              ? 'text-slate-500 dark:text-slate-400 font-semibold'
+              : 'text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400'
           }`}
         >
           {task.title}
@@ -75,7 +77,7 @@ export function TaskCard({
             className={`mt-1.5 mb-2.5 p-2.5 rounded-xl border text-xs flex items-start gap-2 transition-colors ${
               isBlocked
                 ? 'bg-amber-50/80 dark:bg-amber-950/40 border-amber-200/90 dark:border-amber-900/50 text-amber-950 dark:text-amber-300'
-                : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300'
             }`}
           >
             {isBlocked ? (
@@ -133,7 +135,7 @@ export function TaskCard({
                 disabled={isBlocked || isCompleting}
                 title={
                   isBlocked
-                    ? `Cannot complete: waiting for "${task.dependsOnTask?.title}" to be completed.`
+                    ? `Waiting for prerequisite "${task.dependsOnTask?.title}"`
                     : 'Mark as complete'
                 }
                 className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all duration-150 ${
@@ -149,7 +151,7 @@ export function TaskCard({
               <button
                 type="button"
                 disabled={true}
-                title={`Only ${task.assignedUser?.name || 'the assigned user'} can complete this task.`}
+                title={`Only ${task.assignedUser?.name || 'assigned owner'} can complete this task.`}
                 className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-semibold bg-slate-100/80 dark:bg-slate-800/80 text-slate-400 border border-slate-200/60 dark:border-slate-700 cursor-not-allowed opacity-60"
               >
                 <Lock className="w-3 h-3 text-slate-400" />
@@ -167,7 +169,7 @@ export function TaskCard({
           {/* Edit Button */}
           <Link
             href={`/edit-task/${task.id}`}
-            className="p-1 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 rounded-lg transition-colors"
+            className="p-1 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
             title="Edit task"
             aria-label="Edit task"
           >
@@ -191,3 +193,4 @@ export function TaskCard({
     </div>
   );
 }
+

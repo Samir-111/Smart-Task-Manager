@@ -115,8 +115,8 @@ export function TaskForm({
 
   if (loadingData) {
     return (
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center text-slate-500 flex flex-col items-center justify-center gap-3 shadow-premium-sm">
-        <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-12 text-center text-slate-500 dark:text-slate-400 flex flex-col items-center justify-center gap-3 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+        <Loader2 className="w-6 h-6 animate-spin text-indigo-600 dark:text-indigo-400" />
         <span className="text-sm font-medium">Loading task configuration...</span>
       </div>
     );

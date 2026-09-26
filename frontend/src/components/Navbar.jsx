@@ -71,7 +71,7 @@ export function Navbar({ onToggleSidebar, title }) {
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
             placeholder="Search tasks, dependencies, users..."
-            className="w-full pl-9 pr-12 py-2 bg-slate-50/90 dark:bg-slate-800/90 hover:bg-slate-100/70 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 border border-slate-200/90 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 focus:border-blue-500 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/40 transition-all"
+            className="w-full pl-9 pr-12 py-2 bg-slate-50/90 dark:bg-slate-800/90 hover:bg-slate-100/70 dark:hover:bg-slate-800 focus:bg-white dark:focus:bg-slate-900 border border-slate-200/90 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 focus:border-indigo-500 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/40 transition-all"
           />
           <kbd className="absolute right-3 top-1/2 -translate-y-1/2 hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold text-slate-400 dark:text-slate-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-2xs pointer-events-none">
             /
@@ -80,7 +80,7 @@ export function Navbar({ onToggleSidebar, title }) {
 
         {/* Mobile Brand Title */}
         <div className="sm:hidden font-extrabold text-base tracking-tight flex items-center">
-          <span className="text-slate-900 dark:text-white font-black">Smart<span className="text-blue-600 dark:text-blue-400">Task</span></span>
+          <span className="text-slate-900 dark:text-white font-black">Smart<span className="text-indigo-600 dark:text-indigo-400">Task</span></span>
         </div>
       </div>
 
@@ -113,7 +113,7 @@ export function Navbar({ onToggleSidebar, title }) {
             aria-label="Notifications"
           >
             <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full ring-2 ring-white dark:ring-slate-900" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-600 rounded-full ring-2 ring-white dark:ring-slate-900" />
           </button>
 
           {/* Notifications Dropdown */}
@@ -121,7 +121,7 @@ export function Navbar({ onToggleSidebar, title }) {
             <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-modal p-3 z-50 animate-slide-up text-left">
               <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800 px-1">
                 <span className="font-bold text-xs text-slate-900 dark:text-white">Notifications</span>
-                <span className="text-[10px] bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-bold px-1.5 py-0.5 rounded">2 New</span>
+                <span className="text-[10px] bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold px-1.5 py-0.5 rounded">2 New</span>
               </div>
               <div className="mt-2 space-y-1 text-xs">
                 <div className="p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 flex items-start gap-2">
@@ -154,7 +154,7 @@ export function Navbar({ onToggleSidebar, title }) {
               }}
               className="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-full hover:bg-slate-100/90 dark:hover:bg-slate-800 transition-colors border border-slate-200/80 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50"
             >
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-xs font-extrabold shadow-2xs">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-600 to-slate-900 text-white flex items-center justify-center text-xs font-extrabold shadow-2xs">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <div className="text-left hidden md:block max-w-[120px]">
@@ -201,7 +201,7 @@ export function Navbar({ onToggleSidebar, title }) {
         ) : (
           <Link
             href="/login"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 rounded-xl transition-all shadow-2xs active:scale-98"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-3.5 py-1.5 rounded-xl transition-all shadow-2xs active:scale-98"
           >
             <UserIcon className="w-3.5 h-3.5" />
             <span>Login</span>
