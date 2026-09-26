@@ -1,80 +1,86 @@
 # SmartTask — Task Manager
 
-A simple, modern, full-stack Task Management web application built with ** JavaScript** (Next.js + Node.js/Express).
+A full-stack task management web application built with Next.js (React) and Node.js (Express). It allows users to create, assign, track, and manage task workflows with in-memory state and dependency validation.
 
----
+## Features
 
-## 🚀 Quick Start
+- **Task Management**: Create, edit, delete, and filter tasks by status and priority (Low, Medium, High).
+- **Task Dependencies**: Link dependent tasks together. If Task B depends on Task A, Task B cannot be completed until Task A is Done.
+- **Task Ownership & Mock Auth**: Only the assigned user can mark a task as completed. Switch between user profiles to test workflows.
+- **Task Comments**: Add discussions and notes directly on task detail views.
+- **Data Export**: Export filtered tasks to CSV format with a single click.
+- **Dark Mode Support**: Light and Dark theme toggle with persistence.
 
-### 1. Start Backend
+## Tech Stack
+
+- **Frontend**: Next.js 14, React, Tailwind CSS, Lucide Icons
+- **Backend**: Node.js, Express.js (REST API)
+- **Database**: In-Memory (JavaScript store)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher recommended)
+- npm
+
+### 1. Run the Backend
+
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-> Server runs on: `http://localhost:5000`
 
-### 2. Start Frontend
+The backend server will start on `http://localhost:5000`.
+
+### 2. Run the Frontend
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-> App runs on: `http://localhost:3000`
 
----
+The frontend application will start on `http://localhost:3000`.
 
-## 🌟 What This App Does
+## API Endpoints
 
-- **📊 Dashboard**: Live statistics (Total, To Do, In Progress, Completed), recent tasks, top priorities, team workload, and status distribution chart.
-- **📋 Task Management**: Create, edit, and filter tasks by status and priority (`Low`, `Medium`, `High`).
-- **🔗 Smart Dependencies**: Link tasks together. If Task B depends on Task A, Task B stays **Blocked** until Task A is marked as **Done**.
-- **🔐 Task Ownership**: Only the assigned team member can mark a task as **Done** (enforced in both frontend and backend).
-- **👥 Team Management**: View team members, their active task counts, and easily switch user profiles to test workflows.
+### Users
+- `GET /api/users` - Get all users with assigned task count
+- `POST /api/users` - Create a new user
+- `POST /api/users/login` - Mock user login
 
----
+### Tasks
+- `GET /api/tasks` - Get all tasks (supports `?status=` and `?priority=` filters)
+- `GET /api/tasks/:id` - Get task details by ID
+- `GET /api/tasks/my/:userId` - Get tasks assigned to a specific user
+- `GET /api/tasks/blocked` - Get all blocked tasks
+- `POST /api/tasks` - Create a new task
+- `PUT /api/tasks/:id` - Update a task
+- `PATCH /api/tasks/:id/complete` - Mark a task as completed
+- `DELETE /api/tasks/:id` - Delete a task
 
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 14, React 18, Tailwind CSS, Lucide Icons
-- **Backend**: Node.js, Express.js (REST API)
-- **Data Storage**: In-Memory (JavaScript arrays with seed data)
-- **Language**: 100% JavaScript (No TypeScript)
-
----
-
-## 🧠 Core Rules Explained
-
-1. **Smart Dependency Rule**:
-   - When Task B depends on Task A, Task B cannot be marked as Done until Task A reaches `Done` status.
-   - Once Task A is completed, Task B is automatically unblocked.
-
-2. **Ownership Rule**:
-   - A task can **only** be marked as Done by the user it is assigned to.
-   - Other users will see the complete button as **Locked**.
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-smart-task-manager/
-├── backend/          # Express REST API & in-memory data
+├── backend/
 │   └── src/
-│       ├── controllers/
-│       ├── data/
-│       ├── routes/
-│       └── server.js
-├── frontend/         # Next.js 14 App Router
+│       ├── controllers/    # Request handlers and business logic
+│       ├── data/           # In-memory mock data
+│       ├── routes/         # Express API routes
+│       └── server.js       # Server entry point
+├── frontend/
 │   └── src/
-│       ├── app/
-│       ├── components/
-│       ├── context/
-│       └── services/
+│       ├── app/            # Next.js App Router pages
+│       ├── components/     # UI components
+│       ├── context/        # React context (Auth, Theme)
+│       ├── services/       # API client service
+│       └── utils/          # Helpers (CSV export, confetti)
 └── README.md
 ```
 
----
+## License
 
-## 📄 License
-MIT License. Open-source for educational and project use.
+This project is open-source and available under the MIT License.
+
