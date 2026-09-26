@@ -35,7 +35,7 @@ export function StatsCard({
 
   const style = variantStyles[variant] || variantStyles.default;
 
-  const cardClasses = `relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100/90 dark:border-slate-800 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 group flex flex-col justify-between ${href ? 'cursor-pointer' : ''}`;
+  const cardClasses = `relative p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100/90 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/60 hover:bg-slate-50/70 dark:hover:bg-slate-850 hover:shadow-[0_8px_25px_rgba(79,70,229,0.05)] transition-all duration-200 hover:-translate-y-0.5 group flex flex-col justify-between ${href ? 'cursor-pointer' : ''}`;
 
   const content = (
     <>

@@ -280,8 +280,8 @@ export default function UsersPage() {
                 key={u.id}
                 className={`p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border bg-white dark:bg-slate-900 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 ${
                   isCurrent
-                    ? 'border-indigo-500 ring-2 ring-indigo-100 dark:ring-indigo-950/60 shadow-md bg-gradient-to-b from-white to-indigo-50/20 dark:from-slate-900 dark:to-indigo-950/20'
-                    : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700'
+                    ? 'border-indigo-500 ring-2 ring-indigo-100 dark:ring-indigo-950/60 shadow-md bg-gradient-to-b from-white to-indigo-50/30 dark:from-slate-900 dark:to-indigo-950/20'
+                    : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/70 hover:bg-indigo-50/20 dark:hover:bg-slate-800/50 hover:shadow-[0_8px_25px_rgba(79,70,229,0.06)]'
                 }`}
               >
                 <div>

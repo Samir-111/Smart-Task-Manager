@@ -31,10 +31,10 @@ export function TaskCard({
     <div
       className={`group relative overflow-hidden p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-200 bg-white dark:bg-slate-900 flex flex-col justify-between ${
         isBlocked
-          ? 'border-amber-300/80 dark:border-amber-900/60 bg-gradient-to-b from-white to-amber-50/20 dark:from-slate-900 dark:to-amber-950/20 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-amber-400'
+          ? 'border-amber-300/80 dark:border-amber-900/60 bg-gradient-to-b from-white to-amber-50/20 dark:from-slate-900 dark:to-amber-950/20 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:border-amber-400 hover:bg-amber-50/30'
           : isDone
-          ? 'border-slate-100 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/60 shadow-2xs'
-          : 'border-slate-100 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-premium-hover hover:border-slate-200 dark:hover:border-slate-700 hover:-translate-y-0.5'
+          ? 'border-slate-100 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/60 shadow-2xs hover:bg-slate-50/80 dark:hover:bg-slate-850 hover:border-slate-200 dark:hover:border-slate-700'
+          : 'border-slate-100 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_25px_rgba(79,70,229,0.06)] hover:border-indigo-200 dark:hover:border-indigo-800/70 hover:bg-indigo-50/15 dark:hover:bg-slate-800/40 hover:-translate-y-0.5'
       }`}
     >
       <div>

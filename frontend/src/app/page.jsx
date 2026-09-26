@@ -371,7 +371,7 @@ export default function DashboardPage() {
                 {priorityTasks.map((pt, idx) => (
                   <div
                     key={pt.id}
-                    className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800/80 hover:border-slate-200 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800/80 transition-all flex items-start gap-2.5"
+                    className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-100 dark:border-slate-800/80 hover:border-indigo-200 dark:hover:border-indigo-800/70 bg-slate-50/50 dark:bg-slate-800/40 hover:bg-indigo-50/25 dark:hover:bg-slate-800/80 hover:shadow-2xs transition-all flex items-start gap-2.5"
                   >
                     <span className="w-5 h-5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-extrabold text-[11px] flex items-center justify-center shrink-0 mt-0.5">
                       {idx + 1}
@@ -412,13 +412,13 @@ export default function DashboardPage() {
               </Link>
             </div>
 
-            <div className="space-y-2.5 sm:space-y-3.5">
+            <div className="space-y-1.5 sm:space-y-2">
               {usersList.slice(0, 4).map((u) => {
                 const userTasks = tasks.filter((t) => t.assignedUserId === u.id);
                 const progress = totalTasks > 0 ? Math.round((userTasks.length / totalTasks) * 100) : 0;
 
                 return (
-                  <div key={u.id} className="space-y-1 sm:space-y-1.5">
+                  <div key={u.id} className="p-1.5 sm:p-2 rounded-xl hover:bg-indigo-50/20 dark:hover:bg-slate-800/50 transition-colors space-y-1 sm:space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-slate-800 dark:text-slate-200 truncate">
                         {u.name}

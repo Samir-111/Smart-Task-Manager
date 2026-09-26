@@ -36,10 +36,10 @@ export function TaskTable({
               key={task.id}
               className={`p-3.5 sm:p-4 rounded-2xl transition-all duration-200 bg-white dark:bg-slate-900 shadow-[0_4px_16px_rgba(0,0,0,0.03)] border ${
                 isBlocked
-                  ? 'border-amber-200/90 dark:border-amber-900/40 bg-amber-50/15 dark:bg-amber-950/20'
+                  ? 'border-amber-200/90 dark:border-amber-900/40 bg-amber-50/15 dark:bg-amber-950/20 hover:border-amber-300 hover:bg-amber-50/30'
                   : isDone
-                  ? 'border-slate-100 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/60'
-                  : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700'
+                  ? 'border-slate-100 dark:border-slate-800/80 bg-slate-50/40 dark:bg-slate-900/60 hover:bg-slate-50/80 dark:hover:bg-slate-850'
+                  : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/70 hover:bg-indigo-50/15 dark:hover:bg-slate-800/40 hover:shadow-[0_8px_20px_rgba(79,70,229,0.05)]'
               }`}
             >
               {/* Top Row: Title + Action buttons */}
@@ -184,7 +184,7 @@ export function TaskTable({
               return (
                 <tr
                   key={task.id}
-                  className={`hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors group ${
+                  className={`hover:bg-indigo-50/20 dark:hover:bg-slate-800/50 transition-colors group ${
                     isBlocked
                       ? 'bg-amber-50/15 dark:bg-amber-950/10'
                       : isDone
