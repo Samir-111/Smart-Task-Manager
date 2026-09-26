@@ -1,6 +1,6 @@
 const { users, tasks } = require('../data/mockData');
 
-// Get all users with their assigned task count
+// Get all users with assigned task count
 function getUsers(req, res) {
   try {
     const usersWithCount = users.map((user) => {
@@ -24,7 +24,7 @@ function getUsers(req, res) {
   }
 }
 
-// Create a new user with unique email validation
+// Create new user
 function createUser(req, res) {
   try {
     const { name, email } = req.body;
@@ -83,7 +83,7 @@ function createUser(req, res) {
   }
 }
 
-// Mock login user by userId or email
+// Mock login
 function loginUser(req, res) {
   try {
     const { userId, email } = req.body;
@@ -106,7 +106,7 @@ function loginUser(req, res) {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: 'User not found. Please select an existing user or create a new account.',
+        message: 'User not found.',
       });
     }
 
@@ -119,7 +119,7 @@ function loginUser(req, res) {
     console.error('Error during login:', error);
     return res.status(500).json({
       success: false,
-      message: 'Login failed due to a server error',
+      message: 'Login failed',
     });
   }
 }
@@ -129,3 +129,5 @@ module.exports = {
   createUser,
   loginUser,
 };
+
+

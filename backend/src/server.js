@@ -6,7 +6,6 @@ const taskRoutes = require('./routes/taskRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Enable CORS and JSON body parser
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -14,37 +13,36 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Log incoming API requests
+// Request logger
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
   next();
 });
 
-// Health check endpoint
+// Health check
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
-    message: 'Smart Task Manager Backend API is running (JavaScript)',
+    message: 'Smart Task Manager API running',
     timestamp: new Date().toISOString(),
   });
 });
 
-// Mount user and task routes
+// Routes
 app.use('/api/users', userRoutes);
 app.use('/api/login', userRoutes);
 app.use('/api/tasks', taskRoutes);
 
-// 404 handler for unknown routes
+// 404 handler
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: `API route not found: ${req.method} ${req.originalUrl}`,
+    message: `Route not found: ${req.method} ${req.originalUrl}`,
   });
 });
 
 app.listen(PORT, () => {
-  console.log('========================================');
-  console.log('🚀 Smart Task Manager Backend (JavaScript)');
-  console.log(`📡 Listening on http://localhost:${PORT}`);
-  console.log('========================================');
+  console.log(`Server running on http://localhost:${PORT}`);
 });
+
+

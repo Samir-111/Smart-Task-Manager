@@ -4,7 +4,7 @@ if (!rawApiUrl.endsWith('/api')) {
 }
 const API_BASE_URL = rawApiUrl;
 
-// Helper function for API fetch requests
+// Base request helper
 async function request(endpoint, options = {}) {
   try {
     let headers = {
@@ -12,7 +12,6 @@ async function request(endpoint, options = {}) {
       ...options.headers,
     };
 
-    // Automatically attach active user's ID header for authorization
     if (typeof window !== 'undefined') {
       try {
         const stored = localStorage.getItem('smart_task_manager_user');
@@ -23,7 +22,7 @@ async function request(endpoint, options = {}) {
           }
         }
       } catch (e) {
-        // ignore localStorage parsing errors
+        // ignore storage parse error
       }
     }
 
@@ -46,17 +45,16 @@ async function request(endpoint, options = {}) {
     console.error(`API Error on ${endpoint}:`, error);
     return {
       success: false,
-      message: error.message || 'Unable to connect to the backend server. Please make sure it is running.',
+      message: error.message || 'Unable to connect to the backend server.',
     };
   }
 }
 
-// Get all users
+// User API
 export async function getUsers() {
   return request('/users');
 }
 
-// Create a new user
 export async function createUser(name, email) {
   return request('/users', {
     method: 'POST',
@@ -64,7 +62,6 @@ export async function createUser(name, email) {
   });
 }
 
-// Mock login
 export async function loginUser(credentials) {
   return request('/users/login', {
     method: 'POST',
@@ -72,7 +69,7 @@ export async function loginUser(credentials) {
   });
 }
 
-// Get all tasks with optional filters
+// Task API
 export async function getTasks(filters) {
   let query = '';
   if (filters) {
@@ -85,22 +82,18 @@ export async function getTasks(filters) {
   return request(`/tasks${query}`);
 }
 
-// Get tasks assigned to a specific user
 export async function getMyTasks(userId) {
   return request(`/tasks/my/${userId}`);
 }
 
-// Get all blocked tasks
 export async function getBlockedTasks() {
   return request('/tasks/blocked');
 }
 
-// Get single task by ID
 export async function getTaskById(id) {
   return request(`/tasks/${id}`);
 }
 
-// Create task
 export async function createTask(taskData) {
   return request('/tasks', {
     method: 'POST',
@@ -108,7 +101,6 @@ export async function createTask(taskData) {
   });
 }
 
-// Update task
 export async function updateTask(id, taskData) {
   return request(`/tasks/${id}`, {
     method: 'PUT',
@@ -116,14 +108,12 @@ export async function updateTask(id, taskData) {
   });
 }
 
-// Delete task
 export async function deleteTask(id) {
   return request(`/tasks/${id}`, {
     method: 'DELETE',
   });
 }
 
-// Mark task as completed
 export async function completeTask(id, userId) {
   const body = {};
   if (userId) {
@@ -134,3 +124,5 @@ export async function completeTask(id, userId) {
     body: JSON.stringify(body),
   });
 }
+
+

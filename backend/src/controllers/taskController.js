@@ -1,6 +1,6 @@
 const { tasks, users } = require('../data/mockData');
 
-// Helper to attach user info and dependency details to a task
+// Enrich task with assignee details and dependency status
 function enrichTask(task) {
   const assignedUser = users.find((u) => u.id === task.assignedUserId);
   let dependsOnTaskInfo = null;
@@ -16,7 +16,6 @@ function enrichTask(task) {
         status: parentTask.status,
       };
 
-      // Check if the task is blocked by an incomplete dependency
       if (task.status !== 'Done' && parentTask.status !== 'Done') {
         isBlocked = true;
         blockedReason = `Waiting for: "${parentTask.title}" (${parentTask.status})`;
@@ -35,7 +34,7 @@ function enrichTask(task) {
   };
 }
 
-// Get all tasks with optional status/priority filters
+// Get all tasks with optional filters
 function getAllTasks(req, res) {
   try {
     const { status, priority } = req.query;
@@ -65,7 +64,7 @@ function getAllTasks(req, res) {
   }
 }
 
-// Get tasks assigned to a specific user
+// Get tasks for a specific user
 function getMyTasks(req, res) {
   try {
     const { userId } = req.params;
@@ -77,7 +76,6 @@ function getMyTasks(req, res) {
       });
     }
 
-    // Filter tasks assigned to this user
     const userTasks = tasks.filter((t) => t.assignedUserId === userId);
     const enriched = userTasks.map(enrichTask);
 
@@ -94,7 +92,7 @@ function getMyTasks(req, res) {
   }
 }
 
-// Get all currently blocked tasks
+// Get all blocked tasks
 function getBlockedTasks(req, res) {
   try {
     const enriched = tasks.map(enrichTask);
@@ -113,7 +111,7 @@ function getBlockedTasks(req, res) {
   }
 }
 
-// Get a single task by ID
+// Get single task by ID
 function getTaskById(req, res) {
   try {
     const { id } = req.params;
@@ -139,7 +137,7 @@ function getTaskById(req, res) {
   }
 }
 
-// Create a new task
+// Create new task
 function createTask(req, res) {
   try {
     const { title, description, priority, status, assignedUserId, dependsOnTaskId } = req.body;
@@ -172,7 +170,6 @@ function createTask(req, res) {
     const validStatuses = ['To Do', 'In Progress', 'Done'];
     const taskStatus = validStatuses.includes(status) ? status : 'To Do';
 
-    // Validate dependency if provided
     let validDependsOnTaskId = null;
     if (dependsOnTaskId && typeof dependsOnTaskId === 'string' && dependsOnTaskId.trim() !== '') {
       const parentTask = tasks.find((t) => t.id === dependsOnTaskId);
@@ -184,7 +181,6 @@ function createTask(req, res) {
       }
       validDependsOnTaskId = parentTask.id;
 
-      // Stop task from being created as Done if dependency is pending
       if (taskStatus === 'Done' && parentTask.status !== 'Done') {
         return res.status(400).json({
           success: false,
@@ -221,7 +217,7 @@ function createTask(req, res) {
   }
 }
 
-// Update an existing task
+// Update existing task
 function updateTask(req, res) {
   try {
     const { id } = req.params;
@@ -259,7 +255,6 @@ function updateTask(req, res) {
       });
     }
 
-    // Prevent task from depending on itself
     if (dependsOnTaskId && dependsOnTaskId === id) {
       return res.status(400).json({
         success: false,
@@ -267,7 +262,6 @@ function updateTask(req, res) {
       });
     }
 
-    // Validate dependency if provided
     let validDependsOnTaskId = null;
     if (dependsOnTaskId && typeof dependsOnTaskId === 'string' && dependsOnTaskId.trim() !== '') {
       const parentTask = tasks.find((t) => t.id === dependsOnTaskId);
@@ -280,15 +274,12 @@ function updateTask(req, res) {
       validDependsOnTaskId = parentTask.id;
     }
 
-    // Ownership & Authorization check:
-    // A task can ONLY be marked as Done by the user selected in "Assign To".
     const loggedInUserId =
       req.body?.userId ||
       req.body?.loggedInUserId ||
       req.headers['x-user-id'] ||
       req.query?.userId;
 
-    // Check if user is trying to change status to Done
     const newStatus = status || existingTask.status;
     if (newStatus === 'Done' && existingTask.status !== 'Done') {
       if (!loggedInUserId) {
@@ -308,7 +299,6 @@ function updateTask(req, res) {
       }
     }
 
-    // Stop task from completing if dependency is pending
     if (newStatus === 'Done' && validDependsOnTaskId) {
       const parentTask = tasks.find((t) => t.id === validDependsOnTaskId);
       if (parentTask && parentTask.status !== 'Done') {
@@ -349,7 +339,7 @@ function updateTask(req, res) {
   }
 }
 
-// Mark a task as completed
+// Complete task
 function completeTask(req, res) {
   try {
     const { id } = req.params;
@@ -369,8 +359,6 @@ function completeTask(req, res) {
 
     const task = tasks[taskIndex];
 
-    // Ownership & Authorization check:
-    // A task can ONLY be marked as Done by the user selected in "Assign To".
     if (!loggedInUserId) {
       return res.status(401).json({
         success: false,
@@ -387,7 +375,6 @@ function completeTask(req, res) {
       });
     }
 
-    // Check if the dependency is completed before marking Done
     if (task.dependsOnTaskId) {
       const parentTask = tasks.find((t) => t.id === task.dependsOnTaskId);
       if (parentTask && parentTask.status !== 'Done') {
@@ -416,7 +403,7 @@ function completeTask(req, res) {
   }
 }
 
-// Delete a task and remove dependency references
+// Delete task
 function deleteTask(req, res) {
   try {
     const { id } = req.params;
@@ -429,7 +416,6 @@ function deleteTask(req, res) {
       });
     }
 
-    // Clean up dependency reference from other tasks
     tasks.forEach((t) => {
       if (t.dependsOnTaskId === id) {
         t.dependsOnTaskId = null;
@@ -464,3 +450,5 @@ module.exports = {
   completeTask,
   deleteTask,
 };
+
+
